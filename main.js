@@ -35,6 +35,38 @@ class Boschindego extends utils.Adapter {
         },
       }),
     });
+    this.states = {
+      state: {
+        0: 'Reading status',
+        257: 'Charging',
+        258: 'Docked',
+        259: 'Docked - Software update',
+        260: 'Docked',
+        261: 'Docked',
+        262: 'Docked - Loading map',
+        263: 'Docked - Saving map',
+        513: 'Mowing',
+        514: 'Relocalising',
+        515: 'Loading map',
+        516: 'Learning lawn',
+        517: 'Paused',
+        518: 'Border cut',
+        519: 'Idle in lawn',
+        769: 'Returning to Dock',
+        770: 'Returning to Dock',
+        771: 'Returning to Dock - Battery low',
+        772: 'Returning to dock - Calendar timeslot ended',
+        773: 'Returning to dock - Battery temp range',
+        774: 'Returning to dock',
+        775: 'Returning to dock - Lawn complete',
+        776: 'Returning to dock - Relocalising',
+        1025: 'Diagnostic mode',
+        1026: 'EOL Mode',
+        1281: 'Software update',
+        1537: 'Low power mode',
+        64513: 'Docked - Waking up',
+      },
+    };
   }
 
   /**
@@ -64,37 +96,30 @@ class Boschindego extends utils.Adapter {
     if (this.session.access_token) {
       await this.getDeviceList();
       await this.updateDevices();
-      this.updateInterval = setInterval(
-        async () => {
-          await this.updateDevices();
-        },
-        this.config.interval * 60 * 1000,
-      );
-      this.refreshTokenInterval = setInterval(
-        async () => {
-          await this.refreshToken();
-        },
-        (this.session.expires_in || 3600) * 1000,
-      );
+      this.updateInterval = setInterval(async () => {
+        await this.updateDevices();
+      }, this.config.interval * 60 * 1000);
+      this.refreshTokenInterval = setInterval(async () => {
+        await this.refreshToken();
+      }, (this.session.expires_in || 3600) * 1000);
     }
   }
 
   async login() {
     let loginUrl = '';
-    const formData = await this.requestClient({
+
+    const loginForm = await this.requestClient({
       method: 'get',
-      url: 'https://singlekey-id.com/auth/connect/authorize/callback',
+      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize',
       params: {
-        prompt: 'login',
-        client_id: '12E7F9D5-613D-444A-ACD3-838E4D974396',
-        redirect_uri: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
+        nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
         response_type: 'code',
-        scope: 'openid profile email',
-        response_mode: 'form_post',
-        nonce: crypto.randomBytes(16).toString('base64'),
-        state:
-          'StateProperties=eyJTSUQiOiJ4LW1zLWNwaW0tcmM6NmEzNTY5YjUtOTRhNS00Y2U4LThkZTUtNDg3MmI0YjQ2NzQ5IiwiVElEIjoiNWUyYjU2MWQtZWQ5OS00MWU5LTkxMjEtMmEyZDQ2YjUyMWUyIiwiVE9JRCI6ImI4MTEzNjgxLWFlZjQtNDc0Yi05YmEyLTI1Mjk0Y2FhNDhmYyJ9',
-        suppressed_prompt: 'login',
+        code_challenge_method: 'S256',
+        scope: 'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
+        code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
+        redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
+        client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
+        state: 'aylWn_85vBUdNlHPC_KeGoqrcsyi5VCxjQjvttvD85g',
       },
       headers: {
         Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -105,21 +130,41 @@ class Boschindego extends utils.Adapter {
     })
       .then((res) => {
         this.log.debug(JSON.stringify(res.data));
-        loginUrl = res.request.path;
-        return this.extractHidden(res.data);
+        return JSON.parse(res.data.split('var SETTINGS = ')[1].split(';')[0]);
       })
       .catch((error) => {
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
-    if (!formData) {
-      this.log.error('Could not extract form data');
-      return;
-    }
-    const loginParams = qs.parse(loginUrl.split('?')[1]);
-    const token = this.cookieJar
-      .getCookiesSync('https://singlekey-id.com/auth/')
-      .find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+
+    const singleIdUrl = await this.requestClient({
+      method: 'get',
+      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
+      params: {
+        claimsexchange: 'BoschIDExchange',
+        csrf_token: loginForm.csrf,
+        tx: loginForm.transId,
+        p: 'B2C_1A_signup_signin',
+        diags:
+          '{"pageViewId":"281eab4f-ef89-4f5c-a546-ffad0bb1b00b","pageId":"CombinedSigninAndSignup","trace":[{"ac":"T005","acST":1699567715,"acD":1},{"ac":"T021 - URL:https://swsasharedprodb2c.blob.core.windows.net/b2c-templates/bosch/unified.html","acST":1699567715,"acD":712},{"ac":"T019","acST":1699567716,"acD":9},{"ac":"T004","acST":1699567716,"acD":4},{"ac":"T003","acST":1699567716,"acD":1},{"ac":"T035","acST":1699567716,"acD":0},{"ac":"T030Online","acST":1699567716,"acD":0},{"ac":"T002","acST":1699567791,"acD":0}]}',
+      },
+      headers: {
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'de-de',
+        'User-Agent':
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
+      },
+    })
+      .then((res) => {
+        this.log.debug(JSON.stringify(res.data));
+        return qs.parse(res.request.path.split('?')[1]);
+      })
+      .catch((error) => {
+        this.log.error(error);
+        error.response && this.log.error(JSON.stringify(error.response.data));
+      });
+
+    const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
     const response = await this.requestClient({
       method: 'post',
       url: 'https://singlekey-id.com/auth/api/v1/authentication/login',
@@ -133,14 +178,25 @@ class Boschindego extends utils.Adapter {
         username: this.config.username,
         password: this.config.password,
         keepMeSignedIn: true,
-        returnUrl: loginParams.ReturnUrl,
+        returnUrl: singleIdUrl.ReturnUrl,
       }),
     })
       .then(async (res) => {
         this.log.debug(JSON.stringify(res.data));
-        return await this.requestClient({
+        const htmlForm = await this.requestClient({
           method: 'get',
           url: 'https://singlekey-id.com' + res.data.returnUrl,
+        });
+        const formData = this.extractHidden(htmlForm.data);
+        return await this.requestClient({
+          method: 'post',
+          url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            accept: 'application/json, text/plain, */*',
+            'accept-language': 'de-de',
+          },
+          data: formData,
         });
       })
       .catch((error) => {
@@ -154,6 +210,7 @@ class Boschindego extends utils.Adapter {
     if (!response) {
       return;
     }
+
     await this.requestClient({
       method: 'post',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/token',
@@ -167,7 +224,7 @@ class Boschindego extends utils.Adapter {
       data:
         'code=' +
         response.code +
-        '&code_verifier=dnGV08TXzwgUD-BqATS_WV0Sfh7lLVTAOB9CjC5H7zE&redirect_uri=msauth.com.bosch.indegoconnect.cloud://auth/&grant_type=authorization_code',
+        '&code_verifier=nw0c1JmU5rIszzrUOFj1BFvaqOynWrZ6ZHSVOMisZ7o&redirect_uri=msauth.com.bosch.indegoconnect.cloud://auth/&grant_type=authorization_code',
     })
       .then((res) => {
         this.log.debug(JSON.stringify(res.data));
@@ -215,6 +272,10 @@ class Boschindego extends utils.Adapter {
       .then(async (res) => {
         this.log.debug(JSON.stringify(res.data));
         if (Array.isArray(res.data) === false) {
+          if (!res.data.alm_sn) {
+            this.log.error('No device found');
+            return;
+          }
           res.data = [res.data];
         }
 
@@ -240,15 +301,24 @@ class Boschindego extends utils.Adapter {
             native: {},
           });
 
-          const remoteArray = [{ command: 'Refresh', name: 'True = Refresh' }];
+          const remoteArray = [
+            { command: 'Refresh', name: 'True = Refresh' },
+            { command: 'state_mow', name: 'True = Mow' },
+            { command: 'state_pause', name: 'True = Pause' },
+            { command: 'state_returnToDock', name: 'True = Pause' },
+            { command: 'reset_blade', name: 'True = Reset Blades' },
+            { command: 'reset_alerts', name: 'True = Reset Alerts' },
+            { command: 'predictive_enable', name: 'True = Enable, False Disable' },
+            { command: 'predictive_useradjustment', name: '-100 to 100', type: 'number', role: 'level', def: 0, min: -100, max: 100 },
+          ];
           remoteArray.forEach((remote) => {
-            this.setObjectNotExists(id + '.remote.' + remote.command, {
+            this.extendObject(id + '.remote.' + remote.command, {
               type: 'state',
               common: {
                 name: remote.name || '',
                 type: remote.type || 'boolean',
                 role: remote.role || 'boolean',
-                def: remote.def || false,
+                def: remote.def == null ? false : remote.def,
                 write: true,
                 read: true,
               },
@@ -268,72 +338,80 @@ class Boschindego extends utils.Adapter {
     const statusArray = [
       {
         path: 'state',
-        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/state?longpoll=false&forceRefresh=true&timeout=0&last=1',
-        desc: 'state',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/state?longpoll=false&forceRefresh=true&timeout=0',
+        desc: 'State',
+      },
+      {
+        path: 'alerts',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alerts',
+        desc: 'Alerts',
       },
     ];
+    for (const id of this.deviceArray) {
+      for (const element of statusArray) {
+        const url = element.url.replace('$id', id);
 
-    for (const element of statusArray) {
-      // const url = element.url.replace("$id", id);
-
-      await this.requestClient({
-        method: element.method || 'get',
-        url: element.url,
-        headers: {
-          Connection: 'Keep-Alive',
-          'User-Agent': 'Indego-Connect_4.0.3.12955',
-          Authorization: 'Bearer ' + this.session.access_token,
-        },
-      })
-        .then(async (res) => {
-          this.log.debug(JSON.stringify(res.data));
-          if (!res.data) {
-            return;
-          }
-          const data = res.data;
-
-          const forceIndex = true;
-          const preferedArrayName = null;
-
-          this.json2iob.parse(element.path, data, {
-            forceIndex: forceIndex,
-            preferedArrayName: preferedArrayName,
-            channelName: element.desc,
-          });
-          await this.setObjectNotExistsAsync(element.path + '.json', {
-            type: 'state',
-            common: {
-              name: 'Raw JSON',
-              write: false,
-              read: true,
-              type: 'string',
-              role: 'json',
-            },
-            native: {},
-          });
-          this.setState(element.path + '.json', JSON.stringify(data), true);
+        await this.requestClient({
+          method: element.method || 'get',
+          url: url,
+          headers: {
+            Connection: 'Keep-Alive',
+            'User-Agent': 'Indego-Connect_4.0.3.12955',
+            Authorization: 'Bearer ' + this.session.access_token,
+            'x-im-context-id': this.session.resource,
+          },
         })
-        .catch((error) => {
-          if (error.response) {
-            if (error.response.status === 401) {
-              error.response && this.log.debug(JSON.stringify(error.response.data));
-              this.log.info(element.path + ' receive 401 error. Refresh Token in 60 seconds');
-              this.refreshTokenTimeout && clearTimeout(this.refreshTokenTimeout);
-              this.refreshTokenTimeout = setTimeout(() => {
-                this.refreshToken();
-              }, 1000 * 60);
+          .then(async (res) => {
+            this.log.debug(JSON.stringify(res.data));
+            if (!res.data) {
+              return;
+            }
+            const data = res.data;
 
-              return;
+            const forceIndex = true;
+            const preferedArrayName = null;
+
+            this.json2iob.parse(id + '.' + element.path, data, {
+              forceIndex: forceIndex,
+              preferedArrayName: preferedArrayName,
+              channelName: element.desc,
+              states: this.states,
+            });
+            await this.setObjectNotExistsAsync(id + '.' + element.path + '.json', {
+              type: 'state',
+              common: {
+                name: 'Raw JSON',
+                write: false,
+                read: true,
+                type: 'string',
+                role: 'json',
+              },
+              native: {},
+            });
+            this.setState(element.path + '.json', JSON.stringify(data), true);
+          })
+          .catch((error) => {
+            if (error.response) {
+              if (error.response.status === 401) {
+                error.response && this.log.debug(JSON.stringify(error.response.data));
+                this.log.info(element.path + ' receive 401 error. Refresh Token in 60 seconds');
+                this.refreshTokenTimeout && clearTimeout(this.refreshTokenTimeout);
+                this.refreshTokenTimeout = setTimeout(() => {
+                  this.refreshToken();
+                }, 1000 * 60);
+
+                return;
+              }
+              if (error.response.status === 504) {
+                this.log.warn('Device is offline');
+                return;
+              }
             }
-            if (error.response.status === 504) {
-              this.log.info('Device is offline');
-              return;
-            }
-          }
-          this.log.error(element.url);
-          this.log.error(error);
-          error.response && this.log.error(JSON.stringify(error.response.data));
-        });
+            this.log.error(element.url);
+            this.log.error(error);
+            error.response && this.log.error(JSON.stringify(error.response.data));
+          });
+      }
     }
   }
 
