@@ -1,0 +1,112 @@
+{
+  "common": {
+    "name": "boschindego",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
+    },
+    "title": "Bosch Indego",
+    "titleLang": {
+      "en": "Bosch Indego",
+      "de": "Bosch Indego",
+      "ru": "Бош Индего",
+      "pt": "Bosch Indego",
+      "nl": "Bosch Indego",
+      "fr": "Bosch Indego",
+      "it": "Bosch Indego",
+      "es": "Indego Bosch",
+      "pl": "Boscha Indego",
+      "uk": "Bosch Indego",
+      "zh-cn": "博世英迪格"
+    },
+    "desc": {
+      "en": "Adapter for Bosch Indego Mower",
+      "de": "Adapter für Bosch Indego Rasenmäher",
+      "ru": "Адаптер для газонокосилки Bosch Indego",
+      "pt": "Adaptador para cortador Bosch Indego",
+      "nl": "Adapter voor Bosch Indego maaier",
+      "fr": "Adaptateur pour tondeuse Bosch Indego",
+      "it": "Adattatore per rasaerba Bosch Indego",
+      "es": "Adaptador para cortacésped Bosch Indego",
+      "pl": "Adapter do kosiarki Bosch Indego",
+      "uk": "Адаптер для косарки Bosch Indego",
+      "zh-cn": "适用于博世 Indego 割草机的适配器"
+    },
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "boschindego.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/TA2k/ioBroker.boschindego/main/admin/boschindego.png",
+    "readme": "https://github.com/TA2k/ioBroker.boschindego/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://802f699c7aa84a62b0bcb54b31485352@sentry.iobroker.net/226"
+      }
+    }
+  },
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
+  "native": {
+    "username": "",
+    "password": "",
+    "interval": 30
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
+}
