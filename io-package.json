@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "news": {
-      "0.0.1": {
+      "0.0.2": {
         "en": "initial release",
         "de": "Erstveröffentlichung",
         "ru": "Начальная версия",
@@ -51,8 +51,8 @@
     "main": "main.js",
     "icon": "boschindego.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/TA2k/ioBroker.boschindego/main/admin/boschindego.png",
-    "readme": "https://github.com/TA2k/ioBroker.boschindego/blob/main/README.md",
+    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.boschindego/main/admin/boschindego.png",
+    "readme": "https://github.com/iobroker-community-adapters/ioBroker.boschindego/blob/main/README.md",
     "loglevel": "info",
     "mode": "daemon",
     "type": "garden",

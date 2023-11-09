@@ -5,7 +5,6 @@
  */
 
 const utils = require('@iobroker/adapter-core');
-const crypto = require('crypto');
 const axios = require('axios').default;
 const qs = require('qs');
 const Json2iob = require('json2iob');
@@ -96,18 +95,22 @@ class Boschindego extends utils.Adapter {
     if (this.session.access_token) {
       await this.getDeviceList();
       await this.updateDevices();
-      this.updateInterval = setInterval(async () => {
-        await this.updateDevices();
-      }, this.config.interval * 60 * 1000);
-      this.refreshTokenInterval = setInterval(async () => {
-        await this.refreshToken();
-      }, (this.session.expires_in || 3600) * 1000);
+      this.updateInterval = setInterval(
+        async () => {
+          await this.updateDevices();
+        },
+        this.config.interval * 60 * 1000,
+      );
+      this.refreshTokenInterval = setInterval(
+        async () => {
+          await this.refreshToken();
+        },
+        (this.session.expires_in || 3600) * 1000,
+      );
     }
   }
 
   async login() {
-    let loginUrl = '';
-
     const loginForm = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize',
@@ -115,7 +118,8 @@ class Boschindego extends utils.Adapter {
         nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
         response_type: 'code',
         code_challenge_method: 'S256',
-        scope: 'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
+        scope:
+          'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
         code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
         redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
         client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
@@ -164,7 +168,9 @@ class Boschindego extends utils.Adapter {
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
 
-    const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+    const token = this.cookieJar
+      .getCookiesSync('https://singlekey-id.com/auth/')
+      .find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
     const response = await this.requestClient({
       method: 'post',
       url: 'https://singlekey-id.com/auth/api/v1/authentication/login',
@@ -309,7 +315,15 @@ class Boschindego extends utils.Adapter {
             { command: 'reset_blade', name: 'True = Reset Blades' },
             { command: 'reset_alerts', name: 'True = Reset Alerts' },
             { command: 'predictive_enable', name: 'True = Enable, False Disable' },
-            { command: 'predictive_useradjustment', name: '-100 to 100', type: 'number', role: 'level', def: 0, min: -100, max: 100 },
+            {
+              command: 'predictive_useradjustment',
+              name: '-100 to 100',
+              type: 'number',
+              role: 'level',
+              def: 0,
+              min: -100,
+              max: 100,
+            },
           ];
           remoteArray.forEach((remote) => {
             this.extendObject(id + '.remote.' + remote.command, {
@@ -473,7 +487,7 @@ class Boschindego extends utils.Adapter {
   async onStateChange(id, state) {
     if (state) {
       if (!state.ack) {
-        const deviceId = id.split('.')[2];
+        // const deviceId = id.split('.')[2];
         const command = id.split('.')[4];
         if (id.split('.')[3] !== 'remote') {
           return;

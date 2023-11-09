@@ -1,19 +1,19 @@
 {
   "name": "iobroker.boschindego",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adapter for Bosch Indego Mower",
   "author": {
     "name": "TA2k",
     "email": "tombox2020@gmail.com"
   },
-  "homepage": "https://github.com/TA2k/ioBroker.boschindego",
+  "homepage": "https://github.com/iobroker-community-adapters/ioBroker.boschindego",
   "license": "MIT",
   "keywords": [
     "Indego"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/TA2k/ioBroker.boschindego.git"
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.boschindego.git"
   },
   "engines": {
     "node": ">= 16"
@@ -74,7 +74,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/TA2k/ioBroker.boschindego/issues"
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.boschindego/issues"
   },
   "readmeFilename": "README.md"
 }

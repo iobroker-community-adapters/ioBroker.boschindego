@@ -9,7 +9,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.boschindego.png?downloads=true)](https://nodei.co/npm/iobroker.boschindego/)
 
-**Tests:** ![Test and Release](https://github.com/TA2k/ioBroker.boschindego/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/iobroker-community-adapters/ioBroker.boschindego/workflows/Test%20and%20Release/badge.svg)
 
 ## boschindego adapter for ioBroker
 
