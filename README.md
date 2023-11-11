@@ -15,12 +15,17 @@
 
 Adapter for Bosch Indego Mower
 
+## Usage
+
+Use id.remote.\* to control the mower
+
 ## Changelog
 
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
 ### 0.1.0 (2023-11-11)
 
 - (TA2k) initial release
