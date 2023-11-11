@@ -13,6 +13,7 @@
         "it": "E-mail dell'app",
         "es": "Correo electrónico de la aplicación",
         "pl": "E-mail aplikacji",
+        "uk": "Електронна пошта додатка",
         "zh-cn": "应用电子邮件"
       },
       "newLine": true,
@@ -34,7 +35,26 @@
         "it": "Password dell'app",
         "es": "Contraseña de la aplicación",
         "pl": "Hasło do aplikacji",
+        "uk": "Пароль додатка",
         "zh-cn": "应用密码"
+      }
+    },
+    "getMap": {
+      "type": "checkbox",
+      "newLine": true,
+      "sm": 3,
+      "label": {
+        "en": "Get Map",
+        "de": "Karte abrufen",
+        "ru": "Получить карту",
+        "pt": "Obter mapa",
+        "nl": "Kaart ophalen",
+        "fr": "Obtenir la carte",
+        "it": "Ottieni mappa",
+        "es": "Obtener mapa",
+        "pl": "Pobierz mapę",
+        "uk": "Отримати карту",
+        "zh-cn": "获取地图"
       }
     },
 
@@ -53,6 +73,7 @@
         "it": "Intervallo di aggiornamento (in minuti)",
         "es": "Intervalo de actualización (en minutos)",
         "pl": "Interwał aktualizacji (w minutach)",
+        "uk": "Інтервал оновлення (в хвилинах)",
         "zh-cn": "更新间隔（分钟）"
       }
     }

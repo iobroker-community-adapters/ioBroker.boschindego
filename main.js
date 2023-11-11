@@ -34,6 +34,8 @@ class Boschindego extends utils.Adapter {
         },
       }),
     });
+    this.alerts = {};
+    this.lastState = {};
     this.states = {
       state: {
         0: 'Reading status',
@@ -269,10 +271,10 @@ class Boschindego extends utils.Adapter {
         app_version: '4.0.3',
         device:
           'eUJTd67jRcuLcceDWLnOFX:APA91bE9FVtylJgX940k8dclGV7zQPs7-yPkI48ybPWbwDtVU9VDH3AenxIINeVm1NBifYMgspjAVzBkPD54oBcFmH29R3pCVhECF5GzTBjFKRa0oiY5XIHtoqDhE42D988NT2OZLM0J',
-        dvc_manuf: 'HUAWEI',
-        dvc_type: 'ANE-LX1',
+        dvc_manuf: 'SAMSUNG',
+        dvc_type: 'S901B/DS',
         os_type: 'Android',
-        os_version: '9',
+        os_version: '13',
       },
     })
       .then(async (res) => {
@@ -314,6 +316,81 @@ class Boschindego extends utils.Adapter {
             { command: 'state_returnToDock', name: 'True = Pause' },
             { command: 'reset_blade', name: 'True = Reset Blades' },
             { command: 'reset_alerts', name: 'True = Reset Alerts' },
+            { command: 'calendar_get', name: 'True = Get' },
+            {
+              command: 'calendar_set',
+              name: 'Set Calendar as JSON',
+              type: 'string',
+              role: 'json',
+              def: `{
+              "sel_cal": 1,
+              "cals": [
+                {
+                  "cal": 1,
+                  "days": [
+                    {
+                      "day": 0,
+                      "slots": [
+                        {
+                          "En": true,
+                          "EnHr": 23,
+                          "EnMin": 59,
+                          "StHr": 22,
+                          "StMin": 0
+                        },
+                        {
+                          "En": true,
+                          "EnHr": 8,
+                          "EnMin": 0,
+                          "StHr": 0,
+                          "StMin": 0
+                        }
+                      ]
+                    },
+                    {
+                      "day": 1,
+                      "slots": [
+                        {
+                          "En": true,
+                          "EnHr": 23,
+                          "EnMin": 59,
+                          "StHr": 22,
+                          "StMin": 0
+                        },
+                        {
+                          "En": true,
+                          "EnHr": 8,
+                          "EnMin": 0,
+                          "StHr": 0,
+                          "StMin": 0
+                        }
+                      ]
+                    },
+                    {
+                      "day": 6,
+                      "slots": [
+                        {
+                          "En": true,
+                          "EnHr": 23,
+                          "EnMin": 59,
+                          "StHr": 22,
+                          "StMin": 0
+                        },
+                        {
+                          "En": true,
+                          "EnHr": 8,
+                          "EnMin": 0,
+                          "StHr": 0,
+                          "StMin": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            `,
+            },
             { command: 'predictive_enable', name: 'True = Enable, False Disable' },
             {
               command: 'predictive_useradjustment',
@@ -348,8 +425,8 @@ class Boschindego extends utils.Adapter {
       });
   }
 
-  async updateDevices() {
-    const statusArray = [
+  async updateDevices(selection) {
+    let statusArray = [
       {
         path: 'state',
         url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/state?longpoll=false&forceRefresh=true&timeout=0',
@@ -361,10 +438,30 @@ class Boschindego extends utils.Adapter {
         desc: 'Alerts',
       },
     ];
+
+    if (selection === 'calendar') {
+      statusArray = [
+        {
+          path: 'calendar',
+          url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/predictive/calendar',
+          desc: 'Calendar',
+        },
+      ];
+    }
+
     for (const id of this.deviceArray) {
+      if (
+        (this.config.getMap && this.lastState[id] == null) ||
+        (this.lastState[id] >= 500 && this.lastState[id] <= 799)
+      ) {
+        statusArray.push({
+          path: 'map',
+          url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/map',
+          desc: 'Map',
+        });
+      }
       for (const element of statusArray) {
         const url = element.url.replace('$id', id);
-
         await this.requestClient({
           method: element.method || 'get',
           url: url,
@@ -376,6 +473,7 @@ class Boschindego extends utils.Adapter {
           },
         })
           .then(async (res) => {
+            this.log.debug(url);
             this.log.debug(JSON.stringify(res.data));
             if (!res.data) {
               return;
@@ -384,7 +482,12 @@ class Boschindego extends utils.Adapter {
 
             const forceIndex = true;
             const preferedArrayName = null;
-
+            if (element.path === 'alerts') {
+              this.alerts[id] = data;
+            }
+            if (element.path === 'state') {
+              this.lastState[id] = data.state;
+            }
             this.json2iob.parse(id + '.' + element.path, data, {
               forceIndex: forceIndex,
               preferedArrayName: preferedArrayName,
@@ -402,9 +505,10 @@ class Boschindego extends utils.Adapter {
               },
               native: {},
             });
-            this.setState(element.path + '.json', JSON.stringify(data), true);
+            this.setState(id + '.' + element.path + '.json', JSON.stringify(data), true);
           })
           .catch((error) => {
+            this.log.debug(url);
             if (error.response) {
               if (error.response.status === 401) {
                 error.response && this.log.debug(JSON.stringify(error.response.data));
@@ -487,7 +591,7 @@ class Boschindego extends utils.Adapter {
   async onStateChange(id, state) {
     if (state) {
       if (!state.ack) {
-        // const deviceId = id.split('.')[2];
+        const deviceId = id.split('.')[2];
         const command = id.split('.')[4];
         if (id.split('.')[3] !== 'remote') {
           return;
@@ -497,6 +601,85 @@ class Boschindego extends utils.Adapter {
           this.updateDevices();
           return;
         }
+        const type = command.split('_')[0];
+        const exec = command.split('_')[1];
+
+        let data = {};
+        let method = 'put';
+        const baseUrl = 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/' + deviceId;
+        const urlArray = [];
+        if (type === 'state') {
+          urlArray.push(baseUrl + '/state');
+          data = { state: exec };
+        }
+        if (type === 'predictive') {
+          if (exec === 'useradjustment') {
+            urlArray.push(baseUrl + '/predictive/useradjustment');
+            data = {
+              user_adjustment: state.val,
+            };
+          }
+          if (exec === 'enable') {
+            urlArray.push(baseUrl + '/predictive');
+            data = {
+              enabled: state.val,
+            };
+          }
+        }
+        if (type === 'reset') {
+          urlArray.push(baseUrl);
+          if (exec === 'blade') {
+            data = {
+              needs_service: false,
+            };
+          }
+          if (exec === 'alerts') {
+            method = 'delete';
+            for (const alert of this.alerts[deviceId]) {
+              urlArray.push(baseUrl + '/alerts/' + alert.id);
+            }
+          }
+        }
+        if (type === 'calendar') {
+          urlArray.push(baseUrl + '/predictive/calendar');
+          if (exec === 'get') {
+            this.updateDevices('calendar');
+            return;
+          }
+          if (exec === 'set') {
+            data = JSON.parse(state.val?.toString() || '{}');
+          }
+        }
+        for (const url of urlArray) {
+          this.log.debug(url);
+          await this.requestClient({
+            method: method,
+            url: url,
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              Connection: 'Keep-Alive',
+              'User-Agent': 'Indego-Connect_4.0.3.12955',
+              Authorization: 'Bearer ' + this.session.access_token,
+              'x-im-context-id': this.session.resource,
+            },
+            data: data,
+          })
+            .then(async (res) => {
+              this.log.debug(JSON.stringify(res.data));
+            })
+            .catch((error) => {
+              if (error.response && error.response.status === 504) {
+                this.log.warn('Device is offline');
+                return;
+              }
+              this.log.error(error);
+              error.response && this.log.error(JSON.stringify(error.response.data));
+            });
+        }
+        this.refreshTimeout && clearTimeout(this.refreshTimeout);
+        this.refreshTimeout = setTimeout(() => {
+          this.updateDevices();
+        }, 10 * 1000);
       }
     }
   }
