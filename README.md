@@ -10,10 +10,11 @@
 [![NPM](https://nodei.co/npm/iobroker.boschindego.png?downloads=true)](https://nodei.co/npm/iobroker.boschindego/)
 
 **Tests:** ![Test and Release](https://github.com/iobroker-community-adapters/ioBroker.boschindego/workflows/Test%20and%20Release/badge.svg)
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## boschindego adapter for ioBroker
 
-Adapter for Bosch Indego Mower
+Adapter for Bosch Indego Mower to show the state of the mower and control the mower.
 
 ## Usage
 
@@ -26,7 +27,7 @@ Use id.remote.\* to control the mower
     ### **WORK IN PROGRESS**
 -->
 
-### 0.1.0 (2023-11-11)
+### 0.1.1 (2023-11-11)
 
 - (TA2k) initial release
 

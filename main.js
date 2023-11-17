@@ -80,6 +80,10 @@ class Boschindego extends utils.Adapter {
       this.log.info('Set interval to minimum 0.5');
       this.config.interval = 0.5;
     }
+    if (this.config.interval > 2147483647) {
+      this.log.info('Set interval to maximum 2147483647');
+      this.config.interval = 2147483647;
+    }
     if (!this.config.username || !this.config.password) {
       this.log.error('Please set username and password in the instance settings');
       return;
@@ -143,6 +147,9 @@ class Boschindego extends utils.Adapter {
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
 
+    if (!loginForm) {
+      return;
+    }
     const singleIdUrl = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
@@ -437,6 +444,26 @@ class Boschindego extends utils.Adapter {
         url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alerts',
         desc: 'Alerts',
       },
+      {
+        path: 'predictive',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/predictive',
+        desc: 'Predictive',
+      },
+      {
+        path: 'operatingData',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/operatingData',
+        desc: 'Operating Data',
+      },
+      {
+        path: 'lastcutting',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/predictive/lastcutting',
+        desc: 'Last Cutting',
+      },
+      {
+        path: 'nextcutting',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/predictive/nextcutting',
+        desc: 'Next Cutting',
+      },
     ];
 
     if (selection === 'calendar') {
@@ -478,7 +505,7 @@ class Boschindego extends utils.Adapter {
             if (!res.data) {
               return;
             }
-            const data = res.data;
+            let data = res.data;
 
             const forceIndex = true;
             const preferedArrayName = null;
@@ -487,6 +514,9 @@ class Boschindego extends utils.Adapter {
             }
             if (element.path === 'state') {
               this.lastState[id] = data.state;
+            }
+            if (element.path === 'map') {
+              data = this.addLocationtoMap(this.lastState[id], data);
             }
             this.json2iob.parse(id + '.' + element.path, data, {
               forceIndex: forceIndex,
@@ -531,6 +561,14 @@ class Boschindego extends utils.Adapter {
           });
       }
     }
+  }
+  addLocationtoMap(state, map) {
+    map = map.substr(0, map.length - 6); // remove </svg>
+    map =
+      map +
+      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow" /></svg>`;
+    map = map.replace('ry="0" fill="#FAFAFA"', 'ry="0" fill="#000" fill-opacity="0.0"');
+    return map;
   }
 
   async refreshToken() {
