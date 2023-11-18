@@ -27,6 +27,8 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (mcm1957) Version number has been bumped to 1.0.0 as lower numbers have been already used in the past.
 
 ### 0.1.1 (2023-11-11)
 
