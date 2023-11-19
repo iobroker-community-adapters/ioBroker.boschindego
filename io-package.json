@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "bump version. New Object structure please delete old objects and restart",
+        "de": "bump-Version. Neu Objektstruktur bitte alte Objekte löschen und neu starten",
+        "ru": "bump версия. Новый Структура объекта, пожалуйста, удалите старые объекты и перезагрузите",
+        "pt": "versão de choque. Novo Estrutura do objeto, por favor, excluir objetos antigos e reiniciar",
+        "nl": "bumpversie. Nieuws Object structuur verwijdert oude objecten en herstart",
+        "fr": "version par bosse. Nouveau Structure objet s'il vous plaît supprimer les anciens objets et redémarrer",
+        "it": "versione urto. Nuovo Struttura oggetti si prega di eliminare oggetti vecchi e riavviare",
+        "es": "versión de parachoques. Nuevo Estructura de objetos por favor eliminar objetos antiguos y reiniciar",
+        "pl": "wersja guzowa. Nowy Budowa obiektu usunąć stare obiekty i restartować",
+        "uk": "bump версія. Нові Структура об'єкта, будь ласка, видаліть старі об'єкти та перезавантажити",
+        "zh-cn": "b 倾销版本。 新的 目的结构"
+      },
       "1.0.0": {
         "en": "Version number has been bumped to 1.0.0 as lower numbers have been already used in the past.",
         "de": "Die Versionsnummer wurde auf 1.0.0 angehoben, da niedrigere Versionen bereits in der Vergangenheit verwendet wurden.",
