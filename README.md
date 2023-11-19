@@ -28,6 +28,10 @@ Use id.remote.\* to control the mower
     ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- bump version. New Object structure please delete old objects and restart
+
 ### 0.1.1 (2023-11-11)
 
 - (TA2k) initial release
