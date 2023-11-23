@@ -28,6 +28,7 @@ class Boschindego extends utils.Adapter {
     this.cookieJar = new tough.CookieJar();
     this.requestClient = axios.create({
       withCredentials: true,
+      timeout: 3 * 60 * 1000, //3min client timeout
       httpsAgent: new HttpsCookieAgent({
         cookies: {
           jar: this.cookieJar,
@@ -563,17 +564,18 @@ class Boschindego extends utils.Adapter {
     }
   }
   addLocationtoMap(state, map) {
-    map = map.substr(0, map.length - 6); // remove </svg>
-    map =
-      map +
-      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow" /></svg>`;
-    map = map.replace('ry="0" fill="#FAFAFA"', 'ry="0" fill="#000" fill-opacity="0.0"');
+    //add location to map
+    map = map.replace(
+      '</svg>',
+      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow"/> </svg>`,
+    );
+    //transparent background
+    map = map.replace('ry="0" fill="#FAFAFA"', 'ry="0" fill="#00000" fill-opacity="0.0"');
     return map;
   }
 
   async refreshToken() {
     this.log.debug('Refresh token');
-
     await this.requestClient({
       method: 'post',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/token',
