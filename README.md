@@ -27,11 +27,17 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- added client timeout
+
 ### 1.0.1 (2023-11-19)
 
-- bump version. New Object structure please delete old objects and restart
+- (TA2k) bump version. New Object structure please delete old objects and restart
 
 ### 1.0.0 (2023-11-18)
+
 - (mcm1957) Version number has been bumped to 1.0.0 as lower numbers have been already used in the past.
 
 ### 0.1.1 (2023-11-11)
