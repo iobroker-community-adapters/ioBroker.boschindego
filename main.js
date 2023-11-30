@@ -181,6 +181,15 @@ class Boschindego extends utils.Adapter {
     const token = this.cookieJar
       .getCookiesSync('https://singlekey-id.com/auth/')
       .find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+    if (!token) {
+      this.log.error('Token not found in cookies');
+      return;
+    }
+    if (!singleIdUrl || !singleIdUrl.ReturnUrl) {
+      this.log.error('ReturnUrl not found');
+      this.log.error(JSON.stringify(singleIdUrl));
+      return;
+    }
     const response = await this.requestClient({
       method: 'post',
       url: 'https://singlekey-id.com/auth/api/v1/authentication/login',
