@@ -147,11 +147,8 @@ class Boschindego extends utils.Adapter {
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
-
-    if (!loginForm) {
-      return;
-    }
-    const singleIdUrl = await this.requestClient({
+    let formData = '';
+    const loginParams = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
       params: {
@@ -171,6 +168,7 @@ class Boschindego extends utils.Adapter {
     })
       .then((res) => {
         this.log.debug(JSON.stringify(res.data));
+        formData = this.extractHidden(res.data);
         return qs.parse(res.request.path.split('?')[1]);
       })
       .catch((error) => {
@@ -178,51 +176,88 @@ class Boschindego extends utils.Adapter {
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
 
-    const token = this.cookieJar
-      .getCookiesSync('https://singlekey-id.com/auth/')
-      .find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
-    if (!token) {
-      this.log.error('Token not found in cookies');
+    const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+    const userResponse = await this.requestClient({
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://singlekey-id.com/auth/de-de/login',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        accept: '*/*',
+        'hx-request': 'true',
+        'sec-fetch-site': 'same-origin',
+        'hx-boosted': 'true',
+        'accept-language': 'de-DE,de;q=0.9',
+        'sec-fetch-mode': 'cors',
+        origin: 'https://singlekey-id.com',
+        'user-agent':
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+        'sec-fetch-dest': 'empty',
+      },
+      params: loginParams,
+      data: {
+        'UserIdentifierInput.EmailInput.StringValue': this.config.username,
+        __RequestVerificationToken: formData['undefined'],
+      },
+    })
+      .then((res) => {
+        this.log.debug(JSON.stringify(res.data));
+        return this.extractHidden(res.data);
+      })
+      .catch((error) => {
+        this.log.error(error);
+        error.response && this.log.error(JSON.stringify(error.response.data));
+      });
+    if (!userResponse) {
+      this.log.error('Could not extract user data');
       return;
     }
-    if (!singleIdUrl || !singleIdUrl.ReturnUrl) {
-      this.log.error('ReturnUrl not found');
-      this.log.error(JSON.stringify(singleIdUrl));
-      return;
-    }
+    await this.requestClient({
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://singlekey-id.com/auth/de-de/login/password',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        accept: '*/*',
+        'hx-request': 'true',
+        'sec-fetch-site': 'same-origin',
+        'hx-boosted': 'true',
+        'accept-language': 'de-DE,de;q=0.9',
+        'sec-fetch-mode': 'cors',
+        origin: 'https://singlekey-id.com',
+        'user-agent':
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+        'sec-fetch-dest': 'empty',
+      },
+      params: loginParams,
+      data: {
+        Password: this.config.password,
+        RememberMe: 'true',
+        __RequestVerificationToken: userResponse['undefined'],
+      },
+    }).catch((error) => {
+      this.log.error(error);
+      error.response && this.log.error(JSON.stringify(error.response.data));
+    });
+
+    const htmlForm = await this.requestClient({
+      method: 'get',
+      url: 'https://singlekey-id.com' + loginParams.returnUrl,
+    });
+    const formDataAuth = this.extractHidden(htmlForm.data);
     const response = await this.requestClient({
       method: 'post',
-      url: 'https://singlekey-id.com/auth/api/v1/authentication/login',
+      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
       headers: {
-        requestverificationtoken: token.value,
-        'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
         accept: 'application/json, text/plain, */*',
         'accept-language': 'de-de',
       },
-      data: JSON.stringify({
-        username: this.config.username,
-        password: this.config.password,
-        keepMeSignedIn: true,
-        returnUrl: singleIdUrl.ReturnUrl,
-      }),
+      data: formDataAuth,
     })
-      .then(async (res) => {
+      .then((res) => {
         this.log.debug(JSON.stringify(res.data));
-        const htmlForm = await this.requestClient({
-          method: 'get',
-          url: 'https://singlekey-id.com' + res.data.returnUrl,
-        });
-        const formData = this.extractHidden(htmlForm.data);
-        return await this.requestClient({
-          method: 'post',
-          url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
-          headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            accept: 'application/json, text/plain, */*',
-            'accept-language': 'de-de',
-          },
-          data: formData,
-        });
+        return;
       })
       .catch((error) => {
         if (error && error.message.includes('Unsupported protocol')) {
@@ -230,7 +265,6 @@ class Boschindego extends utils.Adapter {
         }
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
-        return;
       });
     if (!response) {
       return;
