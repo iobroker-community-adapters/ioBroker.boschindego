@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "fix login flow",
+        "de": "Login Flow gefixt",
+        "ru": "исправить поток входа",
+        "pt": "corrigir fluxo de login",
+        "nl": "vertaling:",
+        "fr": "login flux",
+        "it": "correzione del flusso di login",
+        "es": "corrección de flujo de inicio",
+        "pl": "naprawa przepływu logowania",
+        "uk": "виправити потік логіна",
+        "zh-cn": "fix 伐木"
+      },
       "1.0.2": {
         "en": "added client timeout",
         "de": "client timeout",
@@ -82,12 +95,8 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": [
-      "TA2k <tombox2020@gmail.com>"
-    ],
-    "keywords": [
-      "Indego"
-    ],
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
     "license": "MIT",
     "platform": "Javascript/Node.js",
     "main": "main.js",
@@ -120,12 +129,8 @@
       }
     }
   },
-  "encryptedNative": [
-    "password"
-  ],
-  "protectedNative": [
-    "password"
-  ],
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
   "native": {
     "username": "",
     "password": "",
