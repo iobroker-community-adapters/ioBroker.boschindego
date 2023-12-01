@@ -28,6 +28,10 @@ Use id.remote.\* to control the mower
     ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- fix login flow
+
 ### 1.0.2 (2023-11-23)
 
 - added client timeout
