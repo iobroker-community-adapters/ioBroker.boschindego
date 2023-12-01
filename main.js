@@ -176,7 +176,7 @@ class Boschindego extends utils.Adapter {
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
 
-    const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+    // const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
     const userResponse = await this.requestClient({
       method: 'post',
       maxBodyLength: Infinity,
