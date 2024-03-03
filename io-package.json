@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "news": {
+      "1.1.1": {
+        "en": "fix Login",
+        "de": "Login Fix",
+        "ru": "исправление",
+        "pt": "corrigir Login",
+        "nl": "aanmelden repareren",
+        "fr": "correction de la connexion",
+        "it": "correzione Login",
+        "es": "fijación Iniciar sesión",
+        "pl": "fix Login",
+        "uk": "увійти",
+        "zh-cn": "固定登录"
+      },
       "1.1.0": {
         "en": "fix login flow",
         "de": "Login Flow gefixt",
