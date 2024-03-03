@@ -169,6 +169,11 @@ class Boschindego extends utils.Adapter {
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
 
+    if (!loginParams || !loginParams.ReturnUrl) {
+      this.log.error('Could not extract login params');
+      this.log.error(JSON.stringify(loginParams));
+      return;
+    }
     // const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
     const userResponse = await this.requestClient({
       method: 'post',
@@ -235,7 +240,7 @@ class Boschindego extends utils.Adapter {
 
     const htmlForm = await this.requestClient({
       method: 'get',
-      url: 'https://singlekey-id.com' + loginParams.returnUrl,
+      url: 'https://singlekey-id.com' + loginParams.ReturnUrl,
     });
     const formDataAuth = this.extractHidden(htmlForm.data);
     const response = await this.requestClient({
