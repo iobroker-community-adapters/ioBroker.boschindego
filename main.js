@@ -102,12 +102,18 @@ class Boschindego extends utils.Adapter {
     if (this.session.access_token) {
       await this.getDeviceList();
       await this.updateDevices();
-      this.updateInterval = setInterval(async () => {
-        await this.updateDevices();
-      }, this.config.interval * 60 * 1000);
-      this.refreshTokenInterval = setInterval(async () => {
-        await this.refreshToken();
-      }, (this.session.expires_in - 100 || 3500) * 1000);
+      this.updateInterval = setInterval(
+        async () => {
+          await this.updateDevices();
+        },
+        this.config.interval * 60 * 1000,
+      );
+      this.refreshTokenInterval = setInterval(
+        async () => {
+          await this.refreshToken();
+        },
+        (this.session.expires_in - 100 || 3500) * 1000,
+      );
     }
   }
 
@@ -119,7 +125,8 @@ class Boschindego extends utils.Adapter {
         nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
         response_type: 'code',
         code_challenge_method: 'S256',
-        scope: 'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
+        scope:
+          'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
         code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
         redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
         client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
@@ -519,7 +526,11 @@ class Boschindego extends utils.Adapter {
     }
 
     for (const id of this.deviceArray) {
-      if ((this.config.getMap && this.lastState[id] == null) || (this.lastState[id] >= 500 && this.lastState[id] <= 799)) {
+      if (
+        (this.config.getMap && this.lastState[id] == null) ||
+        (this.lastState[id] >= 500 && this.lastState[id] <= 799)
+      ) {
+        this.log.debug('Add map to update because of state ' + this.lastState[id]);
         statusArray.push({
           path: 'map',
           url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/map',
@@ -555,6 +566,10 @@ class Boschindego extends utils.Adapter {
               this.lastState[id] = data.state;
             }
             if (element.path === 'map') {
+              if (!this.lastState[id] || !this.lastState[id].svg_xPos || !this.lastState[id].svg_yPos) {
+                this.log.info('No mower location found to add in the map' + JSON.stringify(this.lastState[id]));
+                return;
+              }
               data = this.addLocationtoMap(this.lastState[id], data);
             }
             this.json2iob.parse(id + '.' + element.path, data, {
@@ -605,7 +620,7 @@ class Boschindego extends utils.Adapter {
     //add location to map
     map = map.replace(
       '</svg>',
-      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow"/> </svg>`
+      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow"/> </svg>`,
     );
     //transparent background
     map = map.replace('ry="0" fill="#FAFAFA"', 'ry="0" fill="#00000" fill-opacity="0.0"');
