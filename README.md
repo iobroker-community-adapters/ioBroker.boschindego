@@ -27,6 +27,11 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- Fix Map location
+
 ### 1.1.1 (2024-03-03)
 
 - fix Login
