@@ -38,6 +38,7 @@ class Boschindego extends utils.Adapter {
     this.alerts = {};
     this.lastState = {};
     this.lastData = {};
+    this.lastMap = {};
     this.states = {
       state: {
         0: 'Reading status',
@@ -566,13 +567,23 @@ class Boschindego extends utils.Adapter {
             if (element.path === 'state') {
               this.lastState[id] = data.state;
               this.lastData[id] = data;
+              if (data.svg_xPos && data.svg_yPos && this.lastMap[id] != null) {
+                const map = this.addLocationtoMap(data, this.lastMap[id]);
+                this.json2iob.parse(id + '.map', map, {
+                  forceIndex: forceIndex,
+                  preferedArrayName: preferedArrayName,
+                  channelName: element.desc,
+                  states: this.states,
+                });
+              }
             }
             if (element.path === 'map') {
               if (!this.lastData[id].svg_xPos || !this.lastData[id].svg_yPos) {
                 this.log.info('No mower location found to add in the map' + JSON.stringify(data));
                 return;
               }
-              data = this.addLocationtoMap(this.lastData[id], data);
+              this.lastMap[id] = data;
+              data = this.addLocationtoMap(this.lastData[id], this.lastMap[id]);
             }
             this.json2iob.parse(id + '.' + element.path, data, {
               forceIndex: forceIndex,
