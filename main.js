@@ -37,6 +37,7 @@ class Boschindego extends utils.Adapter {
     });
     this.alerts = {};
     this.lastState = {};
+    this.lastData = {};
     this.states = {
       state: {
         0: 'Reading status',
@@ -564,13 +565,14 @@ class Boschindego extends utils.Adapter {
             }
             if (element.path === 'state') {
               this.lastState[id] = data.state;
+              this.lastData[id] = data;
             }
             if (element.path === 'map') {
-              if (!this.lastState[id] || !this.lastState[id].svg_xPos || !this.lastState[id].svg_yPos) {
-                this.log.info('No mower location found to add in the map' + JSON.stringify(this.lastState[id]));
+              if (!this.lastData[id].svg_xPos || !this.lastData[id].svg_yPos) {
+                this.log.info('No mower location found to add in the map' + JSON.stringify(data));
                 return;
               }
-              data = this.addLocationtoMap(this.lastState[id], data);
+              data = this.addLocationtoMap(this.lastData[id], data);
             }
             this.json2iob.parse(id + '.' + element.path, data, {
               forceIndex: forceIndex,
@@ -578,17 +580,19 @@ class Boschindego extends utils.Adapter {
               channelName: element.desc,
               states: this.states,
             });
-            await this.setObjectNotExistsAsync(id + '.' + element.path + '.json', {
-              type: 'state',
-              common: {
-                name: 'Raw JSON',
-                write: false,
-                read: true,
-                type: 'string',
-                role: 'json',
-              },
-              native: {},
-            });
+            if (element.path != 'map') {
+              await this.setObjectNotExistsAsync(id + '.' + element.path + '.json', {
+                type: 'state',
+                common: {
+                  name: 'Raw JSON',
+                  write: false,
+                  read: true,
+                  type: 'string',
+                  role: 'json',
+                },
+                native: {},
+              });
+            }
             this.setState(id + '.' + element.path + '.json', JSON.stringify(data), true);
           })
           .catch((error) => {
