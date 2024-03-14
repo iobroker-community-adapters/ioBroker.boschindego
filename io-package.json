@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "news": {
+      "1.1.2": {
+        "en": "Fix Map location",
+        "de": "Fix für Kartenposition",
+        "ru": "Расположение карты",
+        "pt": "Corrigir localização do mapa",
+        "nl": "Plaats van de kaart herstellen",
+        "fr": "Correction de l'emplacement de la carte",
+        "it": "Fissare la posizione della mappa",
+        "es": "Ubicación del mapa",
+        "pl": "Napraw lokalizację mapy",
+        "uk": "Карта сайту",
+        "zh-cn": "修复地图位置"
+      },
       "1.1.1": {
         "en": "fix Login",
         "de": "Login Fix",
