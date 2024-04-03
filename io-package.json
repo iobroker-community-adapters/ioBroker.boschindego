@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
+        "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Адаптер требует node.js 18 и js-controller >= 5 сейчас\nЗависимость обновлена",
+        "pt": "Adapter requer node.js 18 e js-controller >= 5 agora\nAs dependências foram atualizadas",
+        "nl": "Adapter vereist node.js 18 en js-controller Nu 5\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "Adaptateur nécessite node.js 18 et js-controller >= 5 maintenant\nLes dépendances ont été actualisées",
+        "it": "Adattatore richiede node.js 18 e js-controller >= 5 ora\nLe dipendenze sono state aggiornate",
+        "es": "Adaptador requiere node.js 18 y js-controller √= 5 ahora\nSe han actualizado las dependencias",
+        "pl": "Adapter wymaga node.js 18 i sterownika js- > = 5 teraz\nZaktualizowano zależności",
+        "uk": "Адаптер вимагає node.js 18 і js-controller >= 5 тепер\nЗалежність було оновлено",
+        "zh-cn": "适配器需要节点.js 18和js控制器 QQ 现在5号\n依赖关系已更新"
+      },
       "1.1.2": {
         "en": "Fix Map location",
         "de": "Fix für Kartenposition",
@@ -80,19 +93,6 @@
         "pl": "Liczba wersji została zderzona do 1,0.0, jako że w przeszłości były już używane.",
         "uk": "Версія номеру була передана до 1.0.0, як і раніше використовуються менші числа.",
         "zh-cn": "由于过去已经使用了较少的数字,因此流落到1.0.0。."
-      },
-      "0.1.1": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "uk": "початковий реліз",
-        "zh-cn": "初步释放"
       }
     },
     "titleLang": {
@@ -121,8 +121,12 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": ["TA2k <tombox2020@gmail.com>"],
-    "keywords": ["Indego"],
+    "authors": [
+      "TA2k <tombox2020@gmail.com>"
+    ],
+    "keywords": [
+      "Indego"
+    ],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -159,8 +163,12 @@
       }
     }
   },
-  "encryptedNative": ["password"],
-  "protectedNative": ["password"],
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
   "native": {
     "username": "",
     "password": "",
