@@ -371,10 +371,10 @@ class Boschindego extends utils.Adapter {
             { command: 'Refresh', name: 'True = Refresh' },
             { command: 'state_mow', name: 'True = Mow' },
             { command: 'state_pause', name: 'True = Pause' },
-            { command: 'state_returnToDock', name: 'True = Pause' },
+            { command: 'state_returnToDock', name: 'True = return to dock' },
             { command: 'reset_blade', name: 'True = Reset Blades' },
             { command: 'reset_alerts', name: 'True = Reset Alerts' },
-            { command: 'calendar_get', name: 'True = Get' },
+            { command: 'calendar_get', name: 'True = Get calendar' },
             {
               command: 'calendar_set',
               name: 'Set Calendar as JSON',
