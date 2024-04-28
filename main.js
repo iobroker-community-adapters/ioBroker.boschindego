@@ -42,10 +42,10 @@ class Boschindego extends utils.Adapter {
     this.states = {
       state: {
         0: 'Reading status',
-        257: 'Charging',
+        257: 'Trickle Charging',
         258: 'Docked',
         259: 'Docked - Software update',
-        260: 'Docked',
+        260: 'Charging',
         261: 'Docked',
         262: 'Docked - Loading map',
         263: 'Docked - Saving map',
