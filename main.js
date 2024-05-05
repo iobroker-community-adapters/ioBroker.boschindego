@@ -149,7 +149,13 @@ class Boschindego extends utils.Adapter {
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
+    if (!loginForm || !loginForm.csrf || !loginForm.transId) {
+      this.log.error('Could not extract login form');
+      this.log.error(JSON.stringify(loginForm));
+      return;
+    }
     let formData = '';
+
     const loginParams = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
