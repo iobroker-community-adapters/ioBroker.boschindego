@@ -750,11 +750,12 @@ class Boschindego extends utils.Adapter {
           if (exec === 'alerts') {
             method = 'delete';
             if (this.alerts[deviceId]) {
-            for (const alert of this.alerts[deviceId]) {
-              urlArray.push(baseUrl + '/alerts/' + alert.id);
+              for (const alert of this.alerts[deviceId]) {
+                urlArray.push(baseUrl + '/alerts/' + alert.id);
+              }
+            } else {
+              this.log.warn('No alerts found for device ' + deviceId);
             }
-          } else {
-            this.log.warn('No alerts found for device ' + deviceId);
           }
         }
         if (type === 'calendar') {
