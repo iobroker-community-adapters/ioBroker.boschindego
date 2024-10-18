@@ -701,6 +701,7 @@ class Boschindego extends utils.Adapter {
       this.refreshTokenInterval && clearInterval(this.refreshTokenInterval);
       callback();
     } catch (e) {
+      this.log.error(e);
       callback();
     }
   }

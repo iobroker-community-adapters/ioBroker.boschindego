@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "news": {
+      "1.2.1": {
+        "en": "fix login",
+        "de": "zurück zur übersicht",
+        "ru": "исправить логин",
+        "pt": "corrigir login",
+        "nl": "fix login",
+        "fr": "correction de la connexion",
+        "it": "fix login",
+        "es": "corrección de inicio",
+        "pl": "naprawić logowanie",
+        "uk": "фіксувати логін",
+        "zh-cn": "固定登录"
+      },
       "1.2.0": {
         "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
         "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "wersja guzowa. Nowy Budowa obiektu usunąć stare obiekty i restartować",
         "uk": "bump версія. Нові Структура об'єкта, будь ласка, видаліть старі об'єкти та перезавантажити",
         "zh-cn": "b 倾销版本。 新的 目的结构"
-      },
-      "1.0.0": {
-        "en": "Version number has been bumped to 1.0.0 as lower numbers have been already used in the past.",
-        "de": "Die Versionsnummer wurde auf 1.0.0 angehoben, da niedrigere Versionen bereits in der Vergangenheit verwendet wurden.",
-        "ru": "Номер версии был скомплен до 1.0.0 как более низкие числа уже были использованы в прошлом.",
-        "pt": "O número da versão foi colhido para 1.0.0 como números mais baixos já foram usados no passado.",
-        "nl": "Versienummer is gebotst naar 1.0, zoals lagere nummers al gebruikt zijn in het verleden.",
-        "fr": "Le nombre de versions a été atteint de 1,0 car les nombres inférieurs ont déjà été utilisés dans le passé.",
-        "it": "Il numero di versione è stato urtato a 1.0.0 come numeri inferiori sono stati già utilizzati in passato.",
-        "es": "El número de versión se ha reducido a 1.0.0 ya que los números más bajos ya se han utilizado en el pasado.",
-        "pl": "Liczba wersji została zderzona do 1,0.0, jako że w przeszłości były już używane.",
-        "uk": "Версія номеру була передана до 1.0.0, як і раніше використовуються менші числа.",
-        "zh-cn": "由于过去已经使用了较少的数字,因此流落到1.0.0。."
       }
     },
     "titleLang": {
