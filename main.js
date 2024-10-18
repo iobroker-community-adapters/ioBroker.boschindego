@@ -276,6 +276,7 @@ class Boschindego extends utils.Adapter {
         if (error && error.message.includes('Unsupported protocol')) {
           return qs.parse(error.request._options.path.split('?')[1]);
         }
+        this.log.error('Authresp step faild');
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
@@ -305,6 +306,7 @@ class Boschindego extends utils.Adapter {
         this.setState('info.connection', true, true);
       })
       .catch((error) => {
+        this.log.error('Code Exchange step faild');
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
@@ -313,6 +315,12 @@ class Boschindego extends utils.Adapter {
     const returnObject = {};
     const matches = body.matchAll(/<input (?=[^>]* name=["']([^'"]*)|)(?=[^>]* value=["']([^'"]*)|)/g);
     for (const match of matches) {
+      if (match[2] != null) {
+        returnObject[match[1]] = match[2];
+      }
+    }
+    const matcheUpper = body.matchAll(/<INPUT (?=[^>]* NAME=["']([^'"]*)|)(?=[^>]* VALUE=["']([^'"]*)|)/g);
+    for (const match of matcheUpper) {
       if (match[2] != null) {
         returnObject[match[1]] = match[2];
       }
