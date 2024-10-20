@@ -29,7 +29,7 @@ Use id.remote.\* to control the mower
 -->
 ### 1.2.2 (2024-10-18)
 
-- fix login
+- (TA2k) fix login
 
 ### 1.2.0 (2024-04-03)
 
