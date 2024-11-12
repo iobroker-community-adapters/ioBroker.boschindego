@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "news": {
+      "1.3.0": {
+        "en": "Admin-UI has been adapted for small displays.\nAdapter requires js-controller 5.0.19 and admin 6.17.14 now.\nIssues reported by adapter checker have been fixed.\nDependencies have been updated.",
+        "de": "Admin-UI wurde für kleine Displays angepasst.\nAdapter benötigt jetzt js-controller 5.0.19 und admin 6.17.14.\nDie vonm Adapter-Checker gemeldeten Probleme wurden behoben.\nAbhängigkeiten wurden aktualisiert.",
+        "ru": "Admin-UI был адаптирован для небольших дисплеев.\nАдаптер требует js-контроллер 5.0.19 и admin 6.17.14.\nПроблемы, о которых сообщает DApetr checker, были решены.\nЗависимость была обновлена.",
+        "pt": "Admin-UI foi adaptado para pequenos monitores.\nAdaptador requer js-controller 5.0.19 e admin 6.17.14 agora.\nQuestões relatadas pelo verificador de adapetr foram corrigidas.\nAs dependências foram atualizadas.",
+        "nl": "Beheerder-UI is aangepast voor kleine displays.\nAdapter vereist js-controller 5.01.19 en admin 6.17.14 nu.\nProblemen gemeld door adapetr checker zijn opgelost.\nAfhankelijkheden zijn bijgewerkt.",
+        "fr": "Admin-UI a été adapté pour les petits affichages.\nAdaptateur nécessite js-controller 5.0.19 et admin 6.17.14 maintenant.\nLes problèmes signalés par le vérificateur adapter ont été corrigés.\nLes dépendances ont été actualisées.",
+        "it": "Admin-UI è stato adattato per piccoli display.\nAdattatore richiede js-controller 5.0.19 e admin 6.17.14 ora.\nI problemi segnalati da adapetr checker sono stati risolti.\nLe dipendenze sono state aggiornate.",
+        "es": "Admin-UI ha sido adaptado para pequeñas pantallas.\nAdaptador requiere js-controller 5.0.19 y admin 6.17.14 ahora.\nSe han solucionado las cuestiones comunicadas por el adapetr checker.\nSe han actualizado las dependencias.",
+        "pl": "Admin- UI został dostosowany do małych wyświetlaczy.\nAdapter wymaga sterownika js- 5.0.19 i admin 6.17.14 teraz.\nKwestie zgłoszone przez kontrolera adaptera zostały ustalone.\nZaktualizowano zależność.",
+        "uk": "Адмін-УІ адаптований для малих дисплеїв.\nАдаптер вимагає js-controller 5.0.19 і admin 6.17.14 тепер.\nЗафіксовано питання, що повідомляються реєстратором.\nОновлено залежність.",
+        "zh-cn": "Admin-UI已经适应了小型显示功能.\n适配器现在需要js控制器5.0.19和管理员6.17.14.\nAdapetr检查仪报告的问题已经解决.\n附属关系已经更新."
+      },
       "1.2.2": {
         "en": "fix login",
         "de": "zurück zur übersicht",
@@ -80,19 +93,6 @@
         "pl": "naprawa przepływu logowania",
         "uk": "виправити потік логіна",
         "zh-cn": "fix 伐木"
-      },
-      "1.0.2": {
-        "en": "added client timeout",
-        "de": "client timeout",
-        "ru": "добавлено timeout клиента",
-        "pt": "adicionado timeout cliente",
-        "nl": "voegde cliënt time-out toe",
-        "fr": "client ajouté timeout",
-        "it": "timeout client aggiunto",
-        "es": "tiempo adicional cliente",
-        "pl": "uproszczony czas klienta",
-        "uk": "доданий клієнт",
-        "zh-cn": "增加客户时间"
       }
     },
     "titleLang": {
