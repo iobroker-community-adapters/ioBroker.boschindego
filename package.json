@@ -9,6 +9,8 @@
   "homepage": "https://github.com/iobroker-community-adapters/ioBroker.boschindego",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
+    "Bosch",
     "Indego"
   ],
   "repository": {
