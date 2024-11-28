@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "news": {
+      "1.2.3": {
+        "en": "login fixed",
+        "de": "Login gefixt",
+        "ru": "фиксированный",
+        "pt": "login fixo",
+        "nl": "login vast",
+        "fr": "login corrigé",
+        "it": "login fisso",
+        "es": "login fijo",
+        "pl": "login stały",
+        "uk": "логін",
+        "zh-cn": "登录已固定"
+      },
       "1.2.2": {
         "en": "fix login",
         "de": "zurück zur übersicht",
@@ -80,19 +93,6 @@
         "pl": "naprawa przepływu logowania",
         "uk": "виправити потік логіна",
         "zh-cn": "fix 伐木"
-      },
-      "1.0.2": {
-        "en": "added client timeout",
-        "de": "client timeout",
-        "ru": "добавлено timeout клиента",
-        "pt": "adicionado timeout cliente",
-        "nl": "voegde cliënt time-out toe",
-        "fr": "client ajouté timeout",
-        "it": "timeout client aggiunto",
-        "es": "tiempo adicional cliente",
-        "pl": "uproszczony czas klienta",
-        "uk": "доданий клієнт",
-        "zh-cn": "增加客户时间"
       }
     },
     "titleLang": {
@@ -121,12 +121,8 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": [
-      "TA2k <tombox2020@gmail.com>"
-    ],
-    "keywords": [
-      "Indego"
-    ],
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -163,12 +159,8 @@
       }
     }
   },
-  "encryptedNative": [
-    "password"
-  ],
-  "protectedNative": [
-    "password"
-  ],
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
   "native": {
     "username": "",
     "password": "",

@@ -109,18 +109,12 @@ class Boschindego extends utils.Adapter {
     if (this.session.access_token) {
       await this.getDeviceList();
       await this.updateDevices();
-      this.updateInterval = setInterval(
-        async () => {
-          await this.updateDevices();
-        },
-        this.config.interval * 60 * 1000,
-      );
-      this.refreshTokenInterval = setInterval(
-        async () => {
-          await this.refreshToken();
-        },
-        (this.session.expires_in - 100 || 3500) * 1000,
-      );
+      this.updateInterval = setInterval(async () => {
+        await this.updateDevices();
+      }, this.config.interval * 60 * 1000);
+      this.refreshTokenInterval = setInterval(async () => {
+        await this.refreshToken();
+      }, (this.session.expires_in - 100 || 3500) * 1000);
     }
   }
 
@@ -132,8 +126,7 @@ class Boschindego extends utils.Adapter {
         nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
         response_type: 'code',
         code_challenge_method: 'S256',
-        scope:
-          'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
+        scope: 'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
         code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
         redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
         client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
@@ -161,7 +154,7 @@ class Boschindego extends utils.Adapter {
     }
     let formData = '';
 
-    const loginParams = await this.requestClient({
+    const loginUrl = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
       params: {
@@ -182,13 +175,14 @@ class Boschindego extends utils.Adapter {
       .then((res) => {
         this.log.debug(JSON.stringify(res.data));
         formData = this.extractHidden(res.data);
-        return qs.parse(res.request.path.split('?')[1]);
+        return res.request.path;
       })
       .catch((error) => {
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
-
+    const loginParams = qs.parse(loginUrl.split('?')[1]);
+    const loginUrlPath = loginUrl.split('?')[0];
     if (!loginParams || !loginParams.ReturnUrl) {
       this.log.error('Could not extract login params');
       this.log.error(JSON.stringify(loginParams));
@@ -198,7 +192,7 @@ class Boschindego extends utils.Adapter {
     const userResponse = await this.requestClient({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com/auth/de-de/login',
+      url: 'https://singlekey-id.com' + loginUrlPath,
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
         accept: '*/*',
@@ -233,7 +227,7 @@ class Boschindego extends utils.Adapter {
     await this.requestClient({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com/auth/de-de/login/password',
+      url: 'https://singlekey-id.com' + loginUrlPath + '/password',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
         accept: '*/*',
@@ -547,10 +541,7 @@ class Boschindego extends utils.Adapter {
     }
 
     for (const id of this.deviceArray) {
-      if (
-        (this.config.getMap && this.lastState[id] == null) ||
-        (this.lastState[id] >= 500 && this.lastState[id] <= 799)
-      ) {
+      if ((this.config.getMap && this.lastState[id] == null) || (this.lastState[id] >= 500 && this.lastState[id] <= 799)) {
         this.log.debug('Add map to update because of state ' + this.lastState[id]);
         statusArray.push({
           path: 'map',
@@ -654,7 +645,7 @@ class Boschindego extends utils.Adapter {
     //add location to map
     map = map.replace(
       '</svg>',
-      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow"/> </svg>`,
+      `<circle cx="${state.svg_xPos}" cy="${state.svg_yPos}" r="20" stroke="black" stroke-width="3" fill="yellow"/> </svg>`
     );
     //transparent background
     map = map.replace('ry="0" fill="#FAFAFA"', 'ry="0" fill="#00000" fill-opacity="0.0"');
