@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "news": {
+      "1.3.1": {
+        "en": "Fix for Login",
+        "de": "Fix für den Login",
+        "ru": "Fix для входа",
+        "pt": "Correção para login",
+        "nl": "Fix voor login",
+        "fr": "Correction pour connexion",
+        "it": "Fissare per Login",
+        "es": "Corrección para iniciar sesión",
+        "pl": "Napraw logowanie",
+        "uk": "Фіксація для входу",
+        "zh-cn": "登录的修复"
+      },
       "1.3.0": {
         "en": "Admin-UI has been adapted for small displays.\nAdapter requires js-controller 5.0.19 and admin 6.17.14 now.\nIssues reported by adapter checker have been fixed.\nDependencies have been updated.",
         "de": "Admin-UI wurde für kleine Displays angepasst.\nAdapter benötigt jetzt js-controller 5.0.19 und admin 6.17.14.\nDie vonm Adapter-Checker gemeldeten Probleme wurden behoben.\nAbhängigkeiten wurden aktualisiert.",
@@ -80,19 +93,6 @@
         "pl": "fix Login",
         "uk": "увійти",
         "zh-cn": "固定登录"
-      },
-      "1.1.0": {
-        "en": "fix login flow",
-        "de": "Login Flow gefixt",
-        "ru": "исправить поток входа",
-        "pt": "corrigir fluxo de login",
-        "nl": "vertaling:",
-        "fr": "login flux",
-        "it": "correzione del flusso di login",
-        "es": "corrección de flujo de inicio",
-        "pl": "naprawa przepływu logowania",
-        "uk": "виправити потік логіна",
-        "zh-cn": "fix 伐木"
       }
     },
     "titleLang": {
@@ -121,12 +121,8 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": [
-      "TA2k <tombox2020@gmail.com>"
-    ],
-    "keywords": [
-      "Indego"
-    ],
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -162,12 +158,8 @@
       }
     }
   },
-  "encryptedNative": [
-    "password"
-  ],
-  "protectedNative": [
-    "password"
-  ],
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
   "native": {
     "username": "",
     "password": "",

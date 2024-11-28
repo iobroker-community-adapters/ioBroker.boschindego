@@ -161,7 +161,7 @@ class Boschindego extends utils.Adapter {
     }
     let formData = '';
 
-    const loginParams = await this.requestClient({
+    const loginUrl = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
       params: {
@@ -182,13 +182,14 @@ class Boschindego extends utils.Adapter {
       .then((res) => {
         this.log.debug(JSON.stringify(res.data));
         formData = this.extractHidden(res.data);
-        return qs.parse(res.request.path.split('?')[1]);
+        return res.request.path;
       })
       .catch((error) => {
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
       });
-
+    const loginParams = qs.parse(loginUrl.split('?')[1]);
+    const loginUrlPath = loginUrl.split('?')[0];
     if (!loginParams || !loginParams.ReturnUrl) {
       this.log.error('Could not extract login params');
       this.log.error(JSON.stringify(loginParams));
@@ -198,7 +199,7 @@ class Boschindego extends utils.Adapter {
     const userResponse = await this.requestClient({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com/auth/de-de/login',
+      url: 'https://singlekey-id.com' + loginUrlPath,
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
         accept: '*/*',
@@ -233,7 +234,7 @@ class Boschindego extends utils.Adapter {
     await this.requestClient({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com/auth/de-de/login/password',
+      url: 'https://singlekey-id.com' + loginUrlPath + '/password',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
         accept: '*/*',

@@ -27,6 +27,10 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 1.3.1 (2024-11-28)
+
+- Fix for Login
+
 ### 1.3.0 (2024-11-12)
 
 - (simatec) Admin-UI has been adapted for small displays.
