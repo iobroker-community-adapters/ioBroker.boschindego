@@ -27,13 +27,10 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 1.3.2 (2025-01-03)
+### 1.3.2 (2024-11-28)
 
-- fix for login. If settings page is not loading, delete the instance and create a new instance.
-
-### 1.3.1 (2024-11-28)
-
-- Fix for Login
+- (TA2k) Fix for Login
+- (mcm1957) Incorrect versioning (1.2.3 instead of 1.3.2) has been corrected
 
 ### 1.3.0 (2024-11-12)
 
