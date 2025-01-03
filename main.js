@@ -103,9 +103,18 @@ class Boschindego extends utils.Adapter {
     this.session = {};
     this.subscribeStates('*.remote.*');
 
-    this.log.info('Login to Bosch Indego');
-    await this.login();
-
+    const sessionState = await this.getStateAsync('auth.session');
+    if (sessionState && sessionState.val) {
+      this.session = JSON.parse(sessionState.val);
+      this.log.info(
+        'Session found. If the login fails please delete boschindego.0.auth.session and restart the adapter',
+      );
+      this.log.debug(JSON.stringify(this.session));
+      await this.refreshToken();
+    } else {
+      this.log.info('Login to Bosch Indego');
+      await this.login();
+    }
     if (this.session.access_token) {
       await this.getDeviceList();
       await this.updateDevices();
@@ -125,6 +134,10 @@ class Boschindego extends utils.Adapter {
   }
 
   async login() {
+    if (!this.config.captcha) {
+      this.log.error('Please set capcha in the instance settings');
+      return;
+    }
     const loginForm = await this.requestClient({
       method: 'get',
       url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize',
@@ -216,6 +229,7 @@ class Boschindego extends utils.Adapter {
       params: loginParams,
       data: {
         'UserIdentifierInput.EmailInput.StringValue': this.config.username,
+        'h-captcha-response': this.config.captcha,
         __RequestVerificationToken: formData['undefined'],
       },
     })
@@ -305,11 +319,23 @@ class Boschindego extends utils.Adapter {
         response.code +
         '&code_verifier=nw0c1JmU5rIszzrUOFj1BFvaqOynWrZ6ZHSVOMisZ7o&redirect_uri=msauth.com.bosch.indegoconnect.cloud://auth/&grant_type=authorization_code',
     })
-      .then((res) => {
+      .then(async (res) => {
         this.log.debug(JSON.stringify(res.data));
         this.session = res.data;
         this.log.info('Login successful');
         this.setState('info.connection', true, true);
+        await this.extendObject('auth.session', {
+          type: 'state',
+          common: {
+            name: 'Session Token',
+            type: 'string',
+            role: 'value',
+            read: true,
+            write: false,
+          },
+          native: {},
+        });
+        this.setState('auth.session', JSON.stringify(this.session), true);
       })
       .catch((error) => {
         this.log.error('Code Exchange step faild');
@@ -679,13 +705,26 @@ class Boschindego extends utils.Adapter {
         grant_type: 'refresh_token',
       }),
     })
-      .then((res) => {
+      .then(async (res) => {
         this.log.debug(JSON.stringify(res.data));
         this.session = res.data;
         this.log.debug('Refresh successful');
         this.setState('info.connection', true, true);
+        await this.extendObject('auth.session', {
+          type: 'state',
+          common: {
+            name: 'Session Token',
+            type: 'string',
+            role: 'value',
+            read: true,
+            write: false,
+          },
+          native: {},
+        });
+        this.setState('auth.session', JSON.stringify(this.session), true);
       })
       .catch(async (error) => {
+        this.log.error('Refresh token faild. Please delete boschindego.0.auth.session and restart the adapter');
         this.log.error(error);
         error.response && this.log.error(JSON.stringify(error.response.data));
         this.setStateAsync('info.connection', false, true);
