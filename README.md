@@ -30,7 +30,7 @@ Use id.remote.\* to control the mower
 
 ### **WORK IN PROGRESS**
 
-- Fix for login. If settings are not loading, delete the instance and create a new instance.
+- (TA2k) Fix for login. If settings are not loading, delete the instance and create a new instance.
 
 ### 1.3.2 (2024-11-28)
 
