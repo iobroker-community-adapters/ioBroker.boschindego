@@ -113,9 +113,7 @@
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
+    "materialize": true,
     "dependencies": [
       {
         "js-controller": ">=5.0.19"
