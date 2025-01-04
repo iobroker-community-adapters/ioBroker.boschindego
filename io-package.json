@@ -1,21 +1,8 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.3.7",
+    "version": "1.3.6",
     "news": {
-      "1.3.7": {
-        "en": "jsonConfig which has been adapteed for responsive design has been restored.",
-        "de": "jsonConfig, die für ansprechendes Design angepasst wurde, wurde restauriert.",
-        "ru": "jsonConfig, который был адаптирован для отзывчивого дизайна, был восстановлен.",
-        "pt": "jsonConfig que foi adaptado para design responsivo foi restaurado.",
-        "nl": "jsonConfig die is aangepast voor responsief ontwerp is hersteld.",
-        "fr": "jsonConfig qui a été adapté pour un design réactif a été restauré.",
-        "it": "jsonConfig che è stato adattato per il design reattivo è stato ripristinato.",
-        "es": "jsonConfig que se ha adaptado para el diseño sensible ha sido restaurado.",
-        "pl": "jsonConfig, który został dostosowany do responsywnego projektu został przywrócony.",
-        "uk": "javaScript licenses API Веб-сайт Go1.13.8.",
-        "zh-cn": "已适应应答设计的 jsonConfig 已恢复."
-      },
       "1.3.6": {
         "en": "Fix for login. If settings are not loading, delete the instance and create a new instance.",
         "de": "Fix für die Anmeldung. Wenn Einstellungen nicht geladen werden, löschen Sie die Instanz und erstellen Sie eine neue Instanz.",
@@ -108,12 +95,8 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": [
-      "TA2k <tombox2020@gmail.com>"
-    ],
-    "keywords": [
-      "Indego"
-    ],
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -149,12 +132,8 @@
       }
     }
   },
-  "encryptedNative": [
-    "password"
-  ],
-  "protectedNative": [
-    "password"
-  ],
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
   "native": {
     "username": "",
     "password": "",
