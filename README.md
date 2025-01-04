@@ -27,7 +27,7 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.7 (2025-01-04)
 - (mcm1957) jsonConfig which has been adapteed for responsive design has been restored.
 
 ### 1.3.6 (2025-01-03)
