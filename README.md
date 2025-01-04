@@ -27,6 +27,9 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (mcm1957) jsonConfig which has been adapteed for responsive design has been restored.
+
 ### 1.3.6 (2025-01-03)
 
 - (TA2k) Fix for login. If settings are not loading, delete the instance and create a new instance.
