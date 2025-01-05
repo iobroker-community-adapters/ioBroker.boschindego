@@ -542,6 +542,11 @@ class Boschindego extends utils.Adapter {
         desc: 'Alerts',
       },
       {
+        path: 'config',
+        url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/config',
+        desc: 'Config',
+      },
+      {
         path: 'predictive',
         url: 'https://api.indego-cloud.iot.bosch-si.com/api/v1/alms/$id/predictive',
         desc: 'Predictive',
@@ -587,6 +592,7 @@ class Boschindego extends utils.Adapter {
       }
       for (const element of statusArray) {
         const url = element.url.replace('$id', id);
+        this.log.debug('Fetch data from ' + url);
         await this.requestClient({
           method: element.method || 'get',
           url: url,
@@ -607,8 +613,15 @@ class Boschindego extends utils.Adapter {
 
             const forceIndex = true;
             const preferedArrayName = null;
+            let parseOptions = {
+              forceIndex: forceIndex,
+              preferedArrayName: preferedArrayName,
+              channelName: element.desc,
+              states: this.states,
+            };
             if (element.path === 'alerts') {
               this.alerts[id] = data;
+              parseOptions.deleteBeforeUpdate = true;
             }
             if (element.path === 'state') {
               this.lastState[id] = data.state;
@@ -631,12 +644,7 @@ class Boschindego extends utils.Adapter {
               this.lastMap[id] = data;
               data = this.addLocationtoMap(this.lastData[id], this.lastMap[id]);
             }
-            this.json2iob.parse(id + '.' + element.path, data, {
-              forceIndex: forceIndex,
-              preferedArrayName: preferedArrayName,
-              channelName: element.desc,
-              states: this.states,
-            });
+            this.json2iob.parse(id + '.' + element.path, data, parseOptions);
             if (element.path != 'map') {
               await this.setObjectNotExistsAsync(id + '.' + element.path + '.json', {
                 type: 'state',
@@ -800,8 +808,8 @@ class Boschindego extends utils.Adapter {
           }
         }
         if (type === 'reset') {
-          urlArray.push(baseUrl);
           if (exec === 'blade') {
+            urlArray.push(baseUrl);
             data = {
               needs_service: false,
             };
@@ -810,13 +818,15 @@ class Boschindego extends utils.Adapter {
             method = 'delete';
             if (this.alerts[deviceId]) {
               for (const alert of this.alerts[deviceId]) {
-                urlArray.push(baseUrl + '/alerts/' + alert.id);
+                const alertId = alert.id || alert.alert_id;
+                urlArray.push('https://api.indego-cloud.iot.bosch-si.com/api/v1/alerts/' + alertId);
               }
             } else {
               this.log.warn('No alerts found for device ' + deviceId);
             }
           }
         }
+
         if (type === 'calendar') {
           urlArray.push(baseUrl + '/predictive/calendar');
           if (exec === 'get') {
