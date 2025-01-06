@@ -28,7 +28,7 @@ Use id.remote.\* to control the mower
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (simatec) Fix Responsive Design
+- (simatec) Fix Responsive Design
 
 ### 1.3.8 (2025-01-04)
 
