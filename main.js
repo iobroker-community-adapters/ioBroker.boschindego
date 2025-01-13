@@ -615,7 +615,7 @@ class Boschindego extends utils.Adapter {
 
             const forceIndex = true;
             const preferedArrayName = null;
-            let parseOptions = {
+            const parseOptions = {
               forceIndex: forceIndex,
               preferedArrayName: preferedArrayName,
               channelName: element.desc,
