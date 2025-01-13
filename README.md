@@ -27,6 +27,9 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (simatec) Fix Responsive Design
+
 ### 1.3.8 (2025-01-04)
 
 - (mcm1957) jsonConfig has been reverted due to captcha requirements.
@@ -88,7 +91,7 @@ Use id.remote.\* to control the mower
 
 MIT License
 
-Copyright (c) 2024-2030 TA2k <tombox2020@gmail.com>
+Copyright (c) 2024-2025 TA2k <tombox2020@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

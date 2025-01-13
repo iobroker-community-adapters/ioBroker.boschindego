@@ -40,4 +40,12 @@ label>i[title] {
     white-space: nowrap;
 }
 
+/* Style for very small Screens */
+@media screen and (max-width: 600px) {
+    #captcha_form {
+        justify-items: center;
+    }
+
+}
+
 /* Add your styles here */
