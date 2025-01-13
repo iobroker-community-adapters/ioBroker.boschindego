@@ -1,0 +1,204 @@
+{
+  "i18n": false,
+  "items": {
+    "username": {
+      "type": "text",
+      "label": {
+        "en": "App Email",
+        "de": "App-E-Mail",
+        "ru": "Электронная почта приложения",
+        "pt": "Email do aplicativo",
+        "nl": "App-e-mail",
+        "fr": "Courriel de l'application",
+        "it": "E-mail dell'app",
+        "es": "Correo electrónico de la aplicación",
+        "pl": "E-mail aplikacji",
+        "uk": "Електронна пошта додатка",
+        "zh-cn": "应用电子邮件"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
+    },
+    "password": {
+      "type": "password",
+      "repeat": false,
+      "visible": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4,
+      "label": {
+        "en": "App Password",
+        "de": "App-Passwort",
+        "ru": "Пароль приложения",
+        "pt": "Senha de app",
+        "nl": "App-wachtwoord",
+        "fr": "Mot de passe de l'application",
+        "it": "Password dell'app",
+        "es": "Contraseña de la aplicación",
+        "pl": "Hasło do aplikacji",
+        "uk": "Пароль додатка",
+        "zh-cn": "应用密码"
+      }
+    },
+    "_captchaManual01": {
+      "type": "staticText",
+      "newLine": true,
+      "label": {
+        "en": "1. Open the Url below and login with your account",
+        "de": "1. Öffnen Sie die unten stehende URL und melden Sie sich mit Ihrem Konto an",
+        "ru": "1. Откройте URL ниже и войдите в свою учетную запись",
+        "pt": "1. Abra a URL abaixo e faça login com sua conta",
+        "nl": "1. Open de onderstaande URL en log in met uw account",
+        "fr": "1. Ouvrez l'URL ci-dessous et connectez-vous avec votre compte",
+        "it": "1. Apri l'URL qui sotto e accedi con il tuo account",
+        "es": "1. Abra la URL a continuación e inicie sesión con su cuenta",
+        "pl": "1. Otwórz poniższy URL i zaloguj się na swoje konto",
+        "zh-cn": "1. 打开下面的URL并使用您的帐户登录"
+      }
+    },
+    "_captchaManual02": {
+      "type": "staticText",
+      "newLine": true,
+      "label": {
+        "en": "2. Open Developer Console F12 or Option + Command + I",
+        "de": "2. Öffnen Sie die Entwicklerkonsole F12 oder Option + Command + I",
+        "ru": "2. Откройте консоль разработчика F12 или Option + Command + I",
+        "pt": "2. Abra o Console do Desenvolvedor F12 ou Option + Command + I",
+        "nl": "2. Open de ontwikkelaarsconsole F12 of Option + Command + I",
+        "fr": "2. Ouvrez la console de développement F12 ou Option + Command + I",
+        "it": "2. Apri la Console degli sviluppatori F12 o Option + Command + I",
+        "es": "2. Abra la Consola de Desarrollador F12 o Option + Command + I",
+        "pl": "2. Otwórz konsolę deweloperską F12 lub Option + Command + I",
+        "zh-cn": "2. 打开开发者控制台 F12 或 Option + Command + I"
+      }
+    },
+    "_captchaManual03": {
+      "type": "staticText",
+      "newLine": true,
+      "label": {
+        "en": "3. You see a failed redirect in the Console copy the msauth.com.bosch.indegoconnect.cloud:// url",
+        "de": "3. Sie sehen eine fehlgeschlagene Weiterleitung in der Konsole, kopieren Sie die msauth.com.bosch.indegoconnect.cloud:// URL",
+        "ru": "3. Вы видите неудачное перенаправление в консоли, скопируйте URL msauth.com.bosch.indegoconnect.cloud://",
+        "pt": "3. Você verá um redirecionamento falho no Console, copie a URL msauth.com.bosch.indegoconnect.cloud://",
+        "nl": "3. U ziet een mislukte omleiding in de console, kopieer de msauth.com.bosch.indegoconnect.cloud:// URL",
+        "fr": "3. Vous voyez une redirection échouée dans la console, copiez l'URL msauth.com.bosch.indegoconnect.cloud://",
+        "it": "3. Vedi un reindirizzamento non riuscito nella Console, copia l'URL msauth.com.bosch.indegoconnect.cloud://",
+        "es": "3. Verá un redireccionamiento fallido en la Consola, copie la URL msauth.com.bosch.indegoconnect.cloud://",
+        "pl": "3. W konsoli zobaczysz nieudane przekierowanie, skopiuj URL msauth.com.bosch.indegoconnect.cloud://",
+        "zh-cn": "3. 您会在控制台中看到失败的重定向，复制 msauth.com.bosch.indegoconnect.cloud:// URL"
+      }
+    },
+    "_captchaManual04": {
+      "type": "staticText",
+      "newLine": true,
+      "label": {
+        "en": "4. Paste the url in the input field below",
+        "de": "4. Fügen Sie die URL in das unten stehende Eingabefeld ein",
+        "ru": "4. Вставьте URL в поле ввода ниже",
+        "pt": "4. Cole a URL no campo de entrada abaixo",
+        "nl": "4. Plak de URL in het onderstaande invoerveld",
+        "fr": "4. Collez l'URL dans le champ de saisie ci-dessous",
+        "it": "4. Incolla l'URL nel campo di input qui sotto",
+        "es": "4. Pegue la URL en el campo de entrada a continuación",
+        "pl": "4. Wklej URL w polu poniżej",
+        "zh-cn": "4. 将URL粘贴到下面的输入字段中"
+      }
+    },
+    "_captchaImg": {
+      "type": "staticImage",
+      "src": "copyurl.png",
+      "sm": 6,
+      "xl": 3,
+      "md": 3,
+      "lg": 3,
+      "xs": 12
+    },
+    "_codeUrl": {
+      "type": "staticLink",
+      "label": {
+        "en": "SingleKey Login Url Click here",
+        "de": "SingleKey Login Url Hier klicken",
+        "ru": "URL входа SingleKey Нажмите здесь",
+        "pt": "URL de login SingleKey Clique aqui",
+        "nl": "SingleKey Login Url Klik hier",
+        "fr": "URL de connexion SingleKey Cliquez ici",
+        "it": "URL di accesso SingleKey Clicca qui",
+        "es": "URL de inicio de sesión de SingleKey Haga clic aquí",
+        "pl": "SingleKey Login Url Kliknij tutaj",
+        "zh-cn": "SingleKey 登录网址单击此处"
+      },
+      "href": "https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize?nonce=b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw&response_type=code&code_challenge_method=S256&scope=openid+profile+email+https:%2F%2Fprodindego.onmicrosoft.com%2Findego-mobile-api%2FIndego.Mower.User+offline_access&code_challenge=5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs&redirect_uri=msauth.com.bosch.indegoconnect.cloud:%2F%2Fauth%2F&client_id=65bb8c9d-1070-4fb4-aa95-853618acc876&state=aylWn_85vBUdNlHPC_KeGoqrcsyi5VCxjQjvttvD85g",
+      "target": "_blank",
+      "button": true,
+      "newLine": true
+    },
+
+    "captcha": {
+      "type": "text",
+      "newLine": true,
+      "placeholder": "msauth.com.bosch.indegoconnect.cloud://auth/?state=aylWn_85vBUdNlHPC_KeGoq.....",
+      "label": {
+        "en": "Code Url",
+        "de": "Code Url",
+        "ru": "URL кода",
+        "pt": "URL do código",
+        "nl": "Code Url",
+        "fr": "URL du code",
+        "it": "URL del codice",
+        "es": "URL del código",
+        "pl": "URL kodu",
+        "zh-cn": "代码网址"
+      }
+    },
+    "getMap": {
+      "type": "checkbox",
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4,
+      "label": {
+        "en": "Get Map",
+        "de": "Karte abrufen",
+        "ru": "Получить карту",
+        "pt": "Obter mapa",
+        "nl": "Kaart ophalen",
+        "fr": "Obtenir la carte",
+        "it": "Ottieni mappa",
+        "es": "Obtener mapa",
+        "pl": "Pobierz mapę",
+        "uk": "Отримати карту",
+        "zh-cn": "获取地图"
+      }
+    },
+    "interval": {
+      "type": "number",
+      "min": 1,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4,
+      "label": {
+        "en": "Update interval (in minutes)",
+        "de": "Aktualisierungsintervall (in Minuten)",
+        "ru": "Интервал обновления (в минутах)",
+        "pt": "Intervalo de atualização (em minutos)",
+        "nl": "Update-interval (in minuten)",
+        "fr": "Intervalle de mise à jour (en minutes)",
+        "it": "Intervallo di aggiornamento (in minuti)",
+        "es": "Intervalo de actualización (en minutos)",
+        "pl": "Interwał aktualizacji (w minutach)",
+        "uk": "Інтервал оновлення (в хвилинах)",
+        "zh-cn": "更新间隔（分钟）"
+      }
+    }
+  }
+}

@@ -134,175 +134,177 @@ class Boschindego extends utils.Adapter {
   }
 
   async login() {
-    if (!this.config.captcha) {
-      this.log.error('Please set capcha in the instance settings');
+    if (!this.config.captcha || !this.config.captcha.startsWith('msauth.com.bosch.indegoconnect')) {
+      this.log.error('Please set code url in the instance settings');
       return;
     }
-    const loginForm = await this.requestClient({
-      method: 'get',
-      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize',
-      params: {
-        nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
-        response_type: 'code',
-        code_challenge_method: 'S256',
-        scope:
-          'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
-        code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
-        redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
-        client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
-        state: 'aylWn_85vBUdNlHPC_KeGoqrcsyi5VCxjQjvttvD85g',
-      },
-      headers: {
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'de-de',
-        'User-Agent':
-          'Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
-      },
-    })
-      .then((res) => {
-        this.log.debug(JSON.stringify(res.data));
-        return JSON.parse(res.data.split('var SETTINGS = ')[1].split(';')[0]);
-      })
-      .catch((error) => {
-        this.log.error(error);
-        error.response && this.log.error(JSON.stringify(error.response.data));
-      });
-    if (!loginForm || !loginForm.csrf || !loginForm.transId) {
-      this.log.error('Could not extract login form');
-      this.log.error(JSON.stringify(loginForm));
-      return;
-    }
-    let formData = '';
+    // const loginForm = await this.requestClient({
+    //   method: 'get',
+    //   url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize',
+    //   params: {
+    //     nonce: 'b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw',
+    //     response_type: 'code',
+    //     code_challenge_method: 'S256',
+    //     scope:
+    //       'openid profile email https://prodindego.onmicrosoft.com/indego-mobile-api/Indego.Mower.User offline_access',
+    //     code_challenge: '5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs',
+    //     redirect_uri: 'msauth.com.bosch.indegoconnect.cloud://auth/',
+    //     client_id: '65bb8c9d-1070-4fb4-aa95-853618acc876',
+    //     state: 'aylWn_85vBUdNlHPC_KeGoqrcsyi5VCxjQjvttvD85g',
+    //   },
+    //   headers: {
+    //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    //     'Accept-Language': 'de-de',
+    //     'User-Agent':
+    //       'Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
+    //   },
+    // })
+    //   .then((res) => {
+    //     this.log.debug(JSON.stringify(res.data));
+    //     return JSON.parse(res.data.split('var SETTINGS = ')[1].split(';')[0]);
+    //   })
+    //   .catch((error) => {
+    //     this.log.error(error);
+    //     error.response && this.log.error(JSON.stringify(error.response.data));
+    //   });
+    // if (!loginForm || !loginForm.csrf || !loginForm.transId) {
+    //   this.log.error('Could not extract login form');
+    //   this.log.error(JSON.stringify(loginForm));
+    //   return;
+    // }
+    // let formData = '';
 
-    const loginUrl = await this.requestClient({
-      method: 'get',
-      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
-      params: {
-        claimsexchange: 'BoschIDExchange',
-        csrf_token: loginForm.csrf,
-        tx: loginForm.transId,
-        p: 'B2C_1A_signup_signin',
-        diags:
-          '{"pageViewId":"281eab4f-ef89-4f5c-a546-ffad0bb1b00b","pageId":"CombinedSigninAndSignup","trace":[{"ac":"T005","acST":1699567715,"acD":1},{"ac":"T021 - URL:https://swsasharedprodb2c.blob.core.windows.net/b2c-templates/bosch/unified.html","acST":1699567715,"acD":712},{"ac":"T019","acST":1699567716,"acD":9},{"ac":"T004","acST":1699567716,"acD":4},{"ac":"T003","acST":1699567716,"acD":1},{"ac":"T035","acST":1699567716,"acD":0},{"ac":"T030Online","acST":1699567716,"acD":0},{"ac":"T002","acST":1699567791,"acD":0}]}',
-      },
-      headers: {
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'de-de',
-        'User-Agent':
-          'Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
-      },
-    })
-      .then((res) => {
-        this.log.debug(JSON.stringify(res.data));
-        formData = this.extractHidden(res.data);
-        return res.request.path;
-      })
-      .catch((error) => {
-        this.log.error(error);
-        error.response && this.log.error(JSON.stringify(error.response.data));
-      });
-    const loginParams = qs.parse(loginUrl.split('?')[1]);
-    const loginUrlPath = loginUrl.split('?')[0];
-    if (!loginParams || !loginParams.ReturnUrl) {
-      this.log.error('Could not extract login params');
-      this.log.error(JSON.stringify(loginParams));
-      return;
-    }
-    // const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
-    const userResponse = await this.requestClient({
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com' + loginUrlPath,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        accept: '*/*',
-        'hx-request': 'true',
-        'sec-fetch-site': 'same-origin',
-        'hx-boosted': 'true',
-        'accept-language': 'de-DE,de;q=0.9',
-        'sec-fetch-mode': 'cors',
-        origin: 'https://singlekey-id.com',
-        'user-agent':
-          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-        'sec-fetch-dest': 'empty',
-      },
-      params: loginParams,
-      data: {
-        'UserIdentifierInput.EmailInput.StringValue': this.config.username,
-        'h-captcha-response': this.config.captcha,
-        __RequestVerificationToken: formData['undefined'],
-      },
-    })
-      .then((res) => {
-        this.log.debug(JSON.stringify(res.data));
-        return this.extractHidden(res.data);
-      })
-      .catch((error) => {
-        this.log.error(error);
-        error.response && this.log.error(JSON.stringify(error.response.data));
-      });
-    if (!userResponse) {
-      this.log.error('Could not extract user data');
-      return;
-    }
-    await this.requestClient({
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://singlekey-id.com' + loginUrlPath + '/password',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        accept: '*/*',
-        'hx-request': 'true',
-        'sec-fetch-site': 'same-origin',
-        'hx-boosted': 'true',
-        'accept-language': 'de-DE,de;q=0.9',
-        'sec-fetch-mode': 'cors',
-        origin: 'https://singlekey-id.com',
-        'user-agent':
-          'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-        'sec-fetch-dest': 'empty',
-      },
-      params: loginParams,
-      data: {
-        Password: this.config.password,
-        RememberMe: 'true',
-        __RequestVerificationToken: userResponse['undefined'],
-      },
-    }).catch((error) => {
-      this.log.error(error);
-      error.response && this.log.error(JSON.stringify(error.response.data));
-    });
+    // const loginUrl = await this.requestClient({
+    //   method: 'get',
+    //   url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/B2C_1A_signup_signin/api/CombinedSigninAndSignup/unified',
+    //   params: {
+    //     claimsexchange: 'BoschIDExchange',
+    //     csrf_token: loginForm.csrf,
+    //     tx: loginForm.transId,
+    //     p: 'B2C_1A_signup_signin',
+    //     diags:
+    //       '{"pageViewId":"281eab4f-ef89-4f5c-a546-ffad0bb1b00b","pageId":"CombinedSigninAndSignup","trace":[{"ac":"T005","acST":1699567715,"acD":1},{"ac":"T021 - URL:https://swsasharedprodb2c.blob.core.windows.net/b2c-templates/bosch/unified.html","acST":1699567715,"acD":712},{"ac":"T019","acST":1699567716,"acD":9},{"ac":"T004","acST":1699567716,"acD":4},{"ac":"T003","acST":1699567716,"acD":1},{"ac":"T035","acST":1699567716,"acD":0},{"ac":"T030Online","acST":1699567716,"acD":0},{"ac":"T002","acST":1699567791,"acD":0}]}',
+    //   },
+    //   headers: {
+    //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    //     'Accept-Language': 'de-de',
+    //     'User-Agent':
+    //       'Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
+    //   },
+    // })
+    //   .then((res) => {
+    //     this.log.debug(JSON.stringify(res.data));
+    //     formData = this.extractHidden(res.data);
+    //     return res.request.path;
+    //   })
+    //   .catch((error) => {
+    //     this.log.error(error);
+    //     error.response && this.log.error(JSON.stringify(error.response.data));
+    //   });
+    // const loginParams = qs.parse(loginUrl.split('?')[1]);
+    // const loginUrlPath = loginUrl.split('?')[0];
+    // if (!loginParams || !loginParams.ReturnUrl) {
+    //   this.log.error('Could not extract login params');
+    //   this.log.error(JSON.stringify(loginParams));
+    //   return;
+    // }
+    // // const token = this.cookieJar.getCookiesSync('https://singlekey-id.com/auth/').find((cookie) => cookie.key === 'X-CSRF-FORM-TOKEN');
+    // const userResponse = await this.requestClient({
+    //   method: 'post',
+    //   maxBodyLength: Infinity,
+    //   url: 'https://singlekey-id.com' + loginUrlPath,
+    //   headers: {
+    //     'content-type': 'application/x-www-form-urlencoded',
+    //     accept: '*/*',
+    //     'hx-request': 'true',
+    //     'sec-fetch-site': 'same-origin',
+    //     'hx-boosted': 'true',
+    //     'accept-language': 'de-DE,de;q=0.9',
+    //     'sec-fetch-mode': 'cors',
+    //     origin: 'https://singlekey-id.com',
+    //     'user-agent':
+    //       'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+    //     'sec-fetch-dest': 'empty',
+    //   },
+    //   params: loginParams,
+    //   data: {
+    //     'UserIdentifierInput.EmailInput.StringValue': this.config.username,
+    //     'h-captcha-response': this.config.captcha,
+    //     __RequestVerificationToken: formData['undefined'],
+    //   },
+    // })
+    //   .then((res) => {
+    //     this.log.debug(JSON.stringify(res.data));
+    //     return this.extractHidden(res.data);
+    //   })
+    //   .catch((error) => {
+    //     this.log.error(error);
+    //     error.response && this.log.error(JSON.stringify(error.response.data));
+    //   });
+    // if (!userResponse) {
+    //   this.log.error('Could not extract user data');
+    //   return;
+    // }
+    // await this.requestClient({
+    //   method: 'post',
+    //   maxBodyLength: Infinity,
+    //   url: 'https://singlekey-id.com' + loginUrlPath + '/password',
+    //   headers: {
+    //     'content-type': 'application/x-www-form-urlencoded',
+    //     accept: '*/*',
+    //     'hx-request': 'true',
+    //     'sec-fetch-site': 'same-origin',
+    //     'hx-boosted': 'true',
+    //     'accept-language': 'de-DE,de;q=0.9',
+    //     'sec-fetch-mode': 'cors',
+    //     origin: 'https://singlekey-id.com',
+    //     'user-agent':
+    //       'Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+    //     'sec-fetch-dest': 'empty',
+    //   },
+    //   params: loginParams,
+    //   data: {
+    //     Password: this.config.password,
+    //     RememberMe: 'true',
+    //     __RequestVerificationToken: userResponse['undefined'],
+    //   },
+    // }).catch((error) => {
+    //   this.log.error(error);
+    //   error.response && this.log.error(JSON.stringify(error.response.data));
+    // });
 
-    const htmlForm = await this.requestClient({
-      method: 'get',
-      url: 'https://singlekey-id.com' + loginParams.ReturnUrl,
-    });
-    const formDataAuth = this.extractHidden(htmlForm.data);
-    const response = await this.requestClient({
-      method: 'post',
-      url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        accept: 'application/json, text/plain, */*',
-        'accept-language': 'de-de',
-      },
-      data: formDataAuth,
-    })
-      .then((res) => {
-        this.log.debug(JSON.stringify(res.data));
-        return;
-      })
-      .catch((error) => {
-        if (error && error.message.includes('Unsupported protocol')) {
-          return qs.parse(error.request._options.path.split('?')[1]);
-        }
-        this.log.error('Authresp step faild');
-        this.log.error(error);
-        error.response && this.log.error(JSON.stringify(error.response.data));
-      });
-    if (!response) {
-      return;
-    }
+    // const htmlForm = await this.requestClient({
+    //   method: 'get',
+    //   url: 'https://singlekey-id.com' + loginParams.ReturnUrl,
+    // });
+    // const formDataAuth = this.extractHidden(htmlForm.data);
+    // const response = await this.requestClient({
+    //   method: 'post',
+    //   url: 'https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/oauth2/authresp',
+    //   headers: {
+    //     'content-type': 'application/x-www-form-urlencoded',
+    //     accept: 'application/json, text/plain, */*',
+    //     'accept-language': 'de-de',
+    //   },
+    //   data: formDataAuth,
+    // })
+    //   .then((res) => {
+    //     this.log.debug(JSON.stringify(res.data));
+    //     return;
+    //   })
+    //   .catch((error) => {
+    //     if (error && error.message.includes('Unsupported protocol')) {
+    //       return qs.parse(error.request._options.path.split('?')[1]);
+    //     }
+    //     this.log.error('Authresp step faild');
+    //     this.log.error(error);
+    //     error.response && this.log.error(JSON.stringify(error.response.data));
+    //   });
+    // if (!response) {
+    //   return;
+    // }
+
+    const response = qs.parse(this.config.captcha.split('?')[1]);
 
     await this.requestClient({
       method: 'post',

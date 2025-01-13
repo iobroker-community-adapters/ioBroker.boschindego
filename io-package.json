@@ -108,12 +108,8 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": [
-      "TA2k <tombox2020@gmail.com>"
-    ],
-    "keywords": [
-      "Indego"
-    ],
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["Indego"],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -131,7 +127,7 @@
     "connectionType": "cloud",
     "dataSource": "poll",
     "adminUI": {
-      "config": "materialize"
+      "config": "json"
     },
     "dependencies": [
       {
@@ -149,12 +145,8 @@
       }
     }
   },
-  "encryptedNative": [
-    "password"
-  ],
-  "protectedNative": [
-    "password"
-  ],
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
   "native": {
     "username": "",
     "password": "",
