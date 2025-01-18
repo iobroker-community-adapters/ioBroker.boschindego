@@ -29,7 +29,7 @@ Use id.remote.\* to control the mower
 -->
 ### 1.3.9 (2025-01-18)
 
-- revert to jsconfonfig and move from captche to codeurl
+- (TA2k) revert to jsonConfig and move from captcha to codeurl
 - (simatec) Fix Responsive Design
 
 ### 1.3.8 (2025-01-04)
