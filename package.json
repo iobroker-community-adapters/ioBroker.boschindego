@@ -1,6 +1,6 @@
 {
   "name": "iobroker.boschindego",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "Adapter for Bosch Indego Mower",
   "author": {
     "name": "TA2k",

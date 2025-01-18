@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "boschindego",
-    "version": "1.3.8",
+    "version": "1.3.9",
     "news": {
+      "1.3.9": {
+        "en": "revert to jsconfonfig and move from captche to codeurl\nFix Responsive Design",
+        "de": "zurück zu jsconfonfig und von captche zu codeurl\nReparieren Responsive Design",
+        "ru": "вернуться к jsconfonfig и перейти от captche к codeurl\nРеакция",
+        "pt": "reverter para jsconfonfig e mover de captche para codeurl\nFix Design responsivo",
+        "nl": "terug naar jsconfonfig en verplaatsen van captche naar codeurl\nResponsief ontwerp repareren",
+        "fr": "revenir à jsconfonfig et passer de captche à codeurl\nCorriger la conception réactive",
+        "it": "tornare a jsconfonfig e passare da captche a codeurl\nRisolvere il disegno reattivo",
+        "es": "volver a jsconfonfig y pasar de captche a codeurl\nDiseño responsivo fijo",
+        "pl": "revert to jsconfonfig and move from captche to codeurl\nNapraw projekt odpowiedzi",
+        "uk": "перевернутися до jsconfonfig і перемістити з captche до codeurl\nФіксований адаптивний дизайн",
+        "zh-cn": "返回到 jsconfonfig 并从卡普切移到编码器\n修复响应设计"
+      },
       "1.3.8": {
         "en": "jsonConfig has been reverted due to captcha requirements.",
         "de": "jsonConfig wurde aufgrund von Captcha-Anforderungen entfernt.",
@@ -108,8 +121,12 @@
       "uk": "Адаптер для косарки Bosch Indego",
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
-    "authors": ["TA2k <tombox2020@gmail.com>"],
-    "keywords": ["Indego"],
+    "authors": [
+      "TA2k <tombox2020@gmail.com>"
+    ],
+    "keywords": [
+      "Indego"
+    ],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -145,8 +162,12 @@
       }
     }
   },
-  "encryptedNative": ["password"],
-  "protectedNative": ["password"],
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
   "native": {
     "username": "",
     "password": "",

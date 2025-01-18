@@ -138,7 +138,6 @@
       "button": true,
       "newLine": true
     },
-
     "captcha": {
       "type": "text",
       "newLine": true,

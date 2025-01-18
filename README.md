@@ -27,7 +27,9 @@ Use id.remote.\* to control the mower
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.9 (2025-01-18)
+
+- revert to jsconfonfig and move from captche to codeurl
 - (simatec) Fix Responsive Design
 
 ### 1.3.8 (2025-01-04)
