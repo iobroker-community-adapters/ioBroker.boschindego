@@ -136,6 +136,9 @@ class Boschindego extends utils.Adapter {
   async login() {
     if (!this.config.captcha || !this.config.captcha.startsWith('msauth.com.bosch.indegoconnect')) {
       this.log.error('Please set code url in the instance settings');
+      if (this.config.captcha) {
+        this.log.error('The url is not valid: ' + this.config.captcha);
+      }
       return;
     }
     // const loginForm = await this.requestClient({
