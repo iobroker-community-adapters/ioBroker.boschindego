@@ -82,8 +82,8 @@
       "type": "staticText",
       "newLine": true,
       "label": {
-        "en": "3. You see a failed redirect in the Console copy the msauth.com.bosch.indegoconnect.cloud:// url",
-        "de": "3. Sie sehen eine fehlgeschlagene Weiterleitung in der Konsole, kopieren Sie die msauth.com.bosch.indegoconnect.cloud:// URL",
+        "en": "3. You see a failed redirect in the Console bottom right, copy the msauth.com.bosch.indegoconnect.cloud:// url",
+        "de": "3. Sie sehen eine fehlgeschlagene Weiterleitung in der Konsole unten rechts, kopieren Sie die msauth.com.bosch.indegoconnect.cloud:// URL",
         "ru": "3. Вы видите неудачное перенаправление в консоли, скопируйте URL msauth.com.bosch.indegoconnect.cloud://",
         "pt": "3. Você verá um redirecionamento falho no Console, copie a URL msauth.com.bosch.indegoconnect.cloud://",
         "nl": "3. U ziet een mislukte omleiding in de console, kopieer de msauth.com.bosch.indegoconnect.cloud:// URL",
