@@ -66,16 +66,16 @@
       "type": "staticText",
       "newLine": true,
       "label": {
-        "en": "2. Open Developer Console F12 or Option + Command + I",
-        "de": "2. Öffnen Sie die Entwicklerkonsole F12 oder Option + Command + I",
-        "ru": "2. Откройте консоль разработчика F12 или Option + Command + I",
-        "pt": "2. Abra o Console do Desenvolvedor F12 ou Option + Command + I",
-        "nl": "2. Open de ontwikkelaarsconsole F12 of Option + Command + I",
-        "fr": "2. Ouvrez la console de développement F12 ou Option + Command + I",
-        "it": "2. Apri la Console degli sviluppatori F12 o Option + Command + I",
-        "es": "2. Abra la Consola de Desarrollador F12 o Option + Command + I",
-        "pl": "2. Otwórz konsolę deweloperską F12 lub Option + Command + I",
-        "zh-cn": "2. 打开开发者控制台 F12 或 Option + Command + I"
+        "en": "2. Press F12 or Option + Command + I to open the Developer Console",
+        "de": "2. Drücken Sie F12 oder Option + Command + I, um die Entwicklerkonsole zu öffnen",
+        "ru": "2. Нажмите F12 или Option + Command + I, чтобы открыть консоль разработчика",
+        "pt": "2. Pressione F12 ou Option + Command + I para abrir o Console do Desenvolvedor",
+        "nl": "2. Druk op F12 of Option + Command + I om de ontwikkelaarsconsole te openen",
+        "fr": "2. Appuyez sur F12 ou Option + Command + I pour ouvrir la console de développement",
+        "it": "2. Premere F12 o Option + Command + I per aprire la Console di sviluppo",
+        "es": "2. Presione F12 o Option + Command + I para abrir la Consola de desarrollador",
+        "pl": "2. Naciśnij F12 lub Option + Command + I, aby otworzyć konsolę deweloperską",
+        "zh-cn": "2. 按F12或Option + Command + I打开开发人员控制台"
       }
     },
     "_captchaManual03": {
