@@ -38,7 +38,7 @@
     "@iobroker/testing": "^5.0.4",
     "@tsconfig/node16": "^16.1.4",
     "@types/node": "^22.15.29",
-    "eslint": "^9.30.0",
+    "eslint": "^9.32.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.5.3",
     "globals": "^15.14.0",
