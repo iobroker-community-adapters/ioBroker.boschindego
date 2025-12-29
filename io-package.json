@@ -122,7 +122,8 @@
       "zh-cn": "适用于博世 Indego 割草机的适配器"
     },
     "authors": [
-      "TA2k <tombox2020@gmail.com>"
+      "TA2k <tombox2020@gmail.com>",
+      "iobroker-community-adapters <iobroker-community-adapters@gmx.de>"
     ],
     "keywords": [
       "Indego"
@@ -148,12 +149,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.17.14"
+        "admin": ">=7.6.17"
       }
     ],
     "plugins": {
