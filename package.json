@@ -18,7 +18,7 @@
     "url": "https://github.com/iobroker-community-adapters/ioBroker.boschindego.git"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 20"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.3",
