@@ -32,6 +32,7 @@ Use id.remote.\* to control the mower
 - (mcm1957) Adapter requires node.js >= 20 now
 - (copilot) Adapter requires js-controller >= 6.0.11 now
 - (copilot) Adapter requires admin >= 7.6.17 now
+- (mcm1957) Dependencies have been updated
 
 ### 1.3.9 (2025-01-18)
 
