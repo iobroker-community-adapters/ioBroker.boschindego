@@ -60,7 +60,12 @@
         "es": "1. Abra la URL a continuación e inicie sesión con su cuenta",
         "pl": "1. Otwórz poniższy URL i zaloguj się na swoje konto",
         "zh-cn": "1. 打开下面的URL并使用您的帐户登录"
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_captchaManual02": {
       "type": "staticText",
@@ -76,7 +81,12 @@
         "es": "2. Presione F12 o Option + Command + I para abrir la Consola de desarrollador",
         "pl": "2. Naciśnij F12 lub Option + Command + I, aby otworzyć konsolę deweloperską",
         "zh-cn": "2. 按F12或Option + Command + I打开开发人员控制台"
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_captchaManual03": {
       "type": "staticText",
@@ -92,7 +102,12 @@
         "es": "3. Verá un redireccionamiento fallido en la Consola, copie la URL msauth.com.bosch.indegoconnect.cloud://",
         "pl": "3. W konsoli zobaczysz nieudane przekierowanie, skopiuj URL msauth.com.bosch.indegoconnect.cloud://",
         "zh-cn": "3. 您会在控制台中看到失败的重定向，复制 msauth.com.bosch.indegoconnect.cloud:// URL"
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_captchaManual04": {
       "type": "staticText",
@@ -108,16 +123,21 @@
         "es": "4. Pegue la URL en el campo de entrada a continuación",
         "pl": "4. Wklej URL w polu poniżej",
         "zh-cn": "4. 将URL粘贴到下面的输入字段中"
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_captchaImg": {
       "type": "staticImage",
       "src": "copyurl.png",
+      "xs": 12,
       "sm": 6,
-      "xl": 3,
       "md": 3,
       "lg": 3,
-      "xs": 12
+      "xl": 3
     },
     "_codeUrl": {
       "type": "staticLink",
@@ -136,7 +156,12 @@
       "href": "https://prodindego.b2clogin.com/prodindego.onmicrosoft.com/b2c_1a_signup_signin/oauth2/v2.0/authorize?nonce=b_x1uhAjiy3iKMcXX1TKbJnBph18-J_Hms4vvWeE7qw&response_type=code&code_challenge_method=S256&scope=openid+profile+email+https:%2F%2Fprodindego.onmicrosoft.com%2Findego-mobile-api%2FIndego.Mower.User+offline_access&code_challenge=5C1HXuvfGjAo-6TVzy_95lQNmpAjorsngCwiD3w3VHs&redirect_uri=msauth.com.bosch.indegoconnect.cloud:%2F%2Fauth%2F&client_id=65bb8c9d-1070-4fb4-aa95-853618acc876&state=aylWn_85vBUdNlHPC_KeGoqrcsyi5VCxjQjvttvD85g",
       "target": "_blank",
       "button": true,
-      "newLine": true
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "captcha": {
       "type": "text",
@@ -153,7 +178,12 @@
         "es": "URL del código",
         "pl": "URL kodu",
         "zh-cn": "代码网址"
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "getMap": {
       "type": "checkbox",
