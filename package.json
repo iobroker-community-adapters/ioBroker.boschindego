@@ -24,7 +24,7 @@
     "@iobroker/adapter-core": "^3.3.2",
     "axios": "^1.13.5",
     "http-cookie-agent": "^6.0.8",
-    "json2iob": "^2.6.21",
+    "json2iob": "^2.6.22",
     "qs": "^6.14.2",
     "tough-cookie": "^5.1.2"
   },
