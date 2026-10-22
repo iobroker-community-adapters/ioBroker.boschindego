@@ -25,7 +25,7 @@
     "axios": "^1.13.6",
     "http-cookie-agent": "^6.0.8",
     "json2iob": "^2.6.28",
-    "qs": "^6.16.0",
+    "qs": "^6.16.1",
     "tough-cookie": "^5.1.2"
   },
   "devDependencies": {
